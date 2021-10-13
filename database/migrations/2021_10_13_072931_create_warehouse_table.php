@@ -17,7 +17,6 @@ class CreateWarehouseTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('product_id')->unsigned();
             $table->integer('size')->notnull();
-            $table->string('color')->notnull();
             $table->integer('quantily')->default(0);
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();

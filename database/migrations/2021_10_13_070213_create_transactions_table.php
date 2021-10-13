@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('user_name')->notnull();
             $table->string('user_email')->notnull();
-            $table->string('user_phone_number')->notnull();
+            $table->string('user_phone')->notnull();
             $table->integer('view')->default(0);
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
