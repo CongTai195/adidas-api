@@ -35,8 +35,8 @@ class userSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            ['name'=>'Thắng Quang', 'email'=>'thanghorit@gmail.com', 'password'=>bcrypt('123'), 'address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'phone'=>'0971504302'],
-            ['name'=>'Thường Duy', 'email'=>'thuongduy24111998@gmail.com', 'password'=>bcrypt('123'), 'address'=>'25 đường 12/5, thị trấn Khâm Đức, huyện Phước Sơn, tỉnh Quảng Nam', 'phone'=>'0708539115'],
+            ['name'=>'Thắng Quang', 'email'=>'thanghorit@gmail.com', 'password'=>bcrypt('123'),'gender'=>1, 'address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'phone'=>'0971504302'],
+            ['name'=>'Thường Duy', 'email'=>'thuongduy24111998@gmail.com', 'password'=>bcrypt('123'), 'gender'=>0, 'address'=>'25 đường 12/5, thị trấn Khâm Đức, huyện Phước Sơn, tỉnh Quảng Nam', 'phone'=>'0708539115'],
         ]);
     }
 }

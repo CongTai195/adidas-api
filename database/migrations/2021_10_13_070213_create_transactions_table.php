@@ -20,7 +20,10 @@ class CreateTransactionsTable extends Migration
             $table->string('user_name')->notnull();
             $table->string('user_email')->notnull();
             $table->string('user_phone')->notnull();
-            $table->integer('view')->default(0);
+            $table->integer('amount')->notnull();
+            $table->string('payment')->notnull();
+            $table->string('message')->nullable();
+            $table->string('security')->notnull();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
