@@ -11,15 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AdminSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(WarehouseSeeder::class);
+        $this->call(adminSeeder::class);
+        $this->call(userSeeder::class);
+        $this->call(categorySeeder::class);
+        $this->call(productSeeder::class);
+        $this->call(details_productSeeder::class);
     }
 }
 
-class AdminSeeder extends Seeder
+class adminSeeder extends Seeder
 {
     public function run()
     {
@@ -30,7 +30,7 @@ class AdminSeeder extends Seeder
     }
 }
 
-class UserSeeder extends Seeder
+class userSeeder extends Seeder
 {
     public function run()
     {
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
     }
 }
 
-class CategorySeeder extends Seeder
+class categorySeeder extends Seeder
 {
     public function run()
     {
@@ -72,7 +72,7 @@ class CategorySeeder extends Seeder
     }
 }
 
-class ProductSeeder extends Seeder
+class productSeeder extends Seeder
 {
     public function run()
     {
@@ -115,11 +115,11 @@ class ProductSeeder extends Seeder
     }
 }
 
-class WarehouseSeeder extends Seeder
+class details_productSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('warehouse')->insert([
+        DB::table('details_products')->insert([
             ['product_id'=>1, 'size'=>38, 'quantily'=>5],
             ['product_id'=>1, 'size'=>39, 'quantily'=>5],
             ['product_id'=>1, 'size'=>40, 'quantily'=>5],
