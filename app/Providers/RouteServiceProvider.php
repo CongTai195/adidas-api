@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapApiAdminRoutes();
     }
 
     /**
@@ -73,8 +73,23 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace('App\Http\Controllers\User')
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "api" routes for the admin portal.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiAdminRoutes()
+    {
+        Route::prefix('api-admin')
+            ->middleware('api')
+            ->namespace('App\Http\Controllers\Admin')
+            ->group(base_path('routes/api-admin.php'));
     }
 }

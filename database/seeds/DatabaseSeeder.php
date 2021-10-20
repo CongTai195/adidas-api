@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,37 +12,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(adminSeeder::class);
-        $this->call(userSeeder::class);
-        $this->call(categorySeeder::class);
-        $this->call(productSeeder::class);
-        $this->call(details_productSeeder::class);
+        $this->call(AdminSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(DetailProductSeeder::class);
     }
 }
 
-class adminSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     public function run()
     {
         DB::table('admins')->insert([
-            ['name'=>'admin', 'email'=>'admin@gmail.com', 'password'=>bcrypt('123')],
-            ['name'=>'Thắng Quang', 'email'=>'thanghokdps@gmail.com', 'password'=>bcrypt('123')]
+            ['name'=>'admin', 'email'=>'admin@gmail.com', 'password'=>Hash::make('123')],
+            ['name'=>'Thắng Quang', 'email'=>'thanghokdps@gmail.com', 'password'=>Hash::make('123')]
         ]);
     }
 }
 
-class userSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run()
     {
         DB::table('users')->insert([
-            ['name'=>'Thắng Quang', 'email'=>'thanghorit@gmail.com', 'password'=>bcrypt('123'),'gender'=>1, 'address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'phone'=>'0971504302'],
-            ['name'=>'Thường Duy', 'email'=>'thuongduy24111998@gmail.com', 'password'=>bcrypt('123'), 'gender'=>0, 'address'=>'25 đường 12/5, thị trấn Khâm Đức, huyện Phước Sơn, tỉnh Quảng Nam', 'phone'=>'0708539115'],
+            ['name'=>'Thắng Quang', 'email'=>'thanghorit@gmail.com', 'password'=>Hash::make('123'),'gender'=>1, 'address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'phone'=>'0971504302'],
+            ['name'=>'Thường Duy', 'email'=>'thuongduy24111998@gmail.com', 'password'=>Hash::make('123'), 'gender'=>0, 'address'=>'25 đường 12/5, thị trấn Khâm Đức, huyện Phước Sơn, tỉnh Quảng Nam', 'phone'=>'0708539115'],
         ]);
     }
 }
 
-class categorySeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     public function run()
     {
@@ -72,7 +73,7 @@ class categorySeeder extends Seeder
     }
 }
 
-class productSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     public function run()
     {
@@ -115,11 +116,11 @@ class productSeeder extends Seeder
     }
 }
 
-class details_productSeeder extends Seeder
+class DetailProductSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('details_products')->insert([
+        DB::table('detail_products')->insert([
             ['product_id'=>1, 'size'=>38, 'quantily'=>5],
             ['product_id'=>1, 'size'=>39, 'quantily'=>5],
             ['product_id'=>1, 'size'=>40, 'quantily'=>5],
@@ -182,7 +183,7 @@ class details_productSeeder extends Seeder
             ['product_id'=>9, 'size'=>41, 'quantily'=>5],
             ['product_id'=>9, 'size'=>42, 'quantily'=>5],
             ['product_id'=>9, 'size'=>43, 'quantily'=>5],
-            ['product_id'=>9, 'size'=>44, 'quantily'=>5],     
+            ['product_id'=>9, 'size'=>44, 'quantily'=>5],
             ['product_id'=>10, 'size'=>38, 'quantily'=>5],
             ['product_id'=>10, 'size'=>39, 'quantily'=>5],
             ['product_id'=>10, 'size'=>40, 'quantily'=>5],

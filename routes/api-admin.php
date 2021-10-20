@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'user.'], function () {
+Route::group(['as' => 'admin.'], function () {
     Route::post('/login', 'AuthenticateController@login')->name('login');
-    Route::group(['middleware' => 'api'], function () {
-       Route::get('/logout', 'AuthenticateController@logout')->name('logout');
+    Route::group(['middleware' => 'api-admin'], function () {
+        Route::get('/logout', 'AuthenticateController@logout')->name('logout');
+
+        Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+            Route::get('/', 'UserController@index')->name('index');
+        });
     });
 });
