@@ -21,5 +21,9 @@ Route::group(['as' => 'admin.'], function () {
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
             Route::get('/', 'UserController@index')->name('index');
         });
+
+        Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
+            Route::get('/', 'ProductController@index')->name('index');
+        });
     });
 });
