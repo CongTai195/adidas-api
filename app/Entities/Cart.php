@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Product extends Model implements TransformableTrait
+class Cart extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -16,10 +16,8 @@ class Product extends Model implements TransformableTrait
      * @var array
      */
     protected $fillable = [
-        'name',
-        'category_id',
-        'price',
-        'description',
-        'image'
+        'user_id',
+        'product_id',
+        'quantily'
     ];
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Transaction extends Model implements TransformableTrait
+class Transaction extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -26,4 +26,9 @@ class Transaction extends Model implements TransformableTrait
         'message',
         'security'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'transaction_id', 'id');
+    }
 }

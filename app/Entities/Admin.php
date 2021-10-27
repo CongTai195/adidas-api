@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Entities;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
-
+    protected $table = 'admins';
     /**
      * The attributes that are mass assignable.
      *
@@ -19,13 +17,10 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'gender',
-        'address',
-        'phone'
     ];
 
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     public function getJWTIdentifier()

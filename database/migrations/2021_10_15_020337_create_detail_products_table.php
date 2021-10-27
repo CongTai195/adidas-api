@@ -16,8 +16,8 @@ class CreateDetailProductsTable extends Migration
         Schema::create('detail_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('product_id')->unsigned();
-            $table->integer('size')->notnull();
-            $table->integer('quantily')->default(0);
+            $table->integer('size');
+            $table->integer('quantity')->default(0);
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
