@@ -18,6 +18,6 @@ class DetailProduct extends Model implements Transformable
     protected $fillable = [
         'product_id',
         'size',
-        'quantily'
+        'quantity'
     ];
 }

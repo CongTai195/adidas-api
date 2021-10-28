@@ -15,7 +15,7 @@ class TransactionService
 
     public function all()
     {
-        return $this->transactionRepository->all();
+        return $this->transactionRepository->with(['orders'])->all();
     }
 
     public function findByField($field, $value, $with = [], $columns = ['*'])

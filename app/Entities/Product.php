@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -22,4 +23,9 @@ class Product extends Model implements Transformable
         'description',
         'image'
     ];
+
+    public function detailProducts(): HasMany
+    {
+        return $this->hasMany(DetailProduct::class, 'product_id', 'id');
+    }
 }

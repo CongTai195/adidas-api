@@ -15,11 +15,11 @@ class OrderService
 
     public function all()
     {
-        return $this->orderRepository->all();
+        return $this->orderRepository->with(['product'])->all();
     }
 
     public function findByField($field, $value, $columns = ['*'])
     {
-        return $this->orderRepository->findByField($field, $value, $columns);
+        return $this->orderRepository->with(['product'])->findByField($field, $value, $columns);
     }
 }

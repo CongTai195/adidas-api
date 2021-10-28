@@ -18,6 +18,6 @@ class Cart extends Model implements Transformable
     protected $fillable = [
         'user_id',
         'product_id',
-        'quantily'
+        'quantity'
     ];
 }

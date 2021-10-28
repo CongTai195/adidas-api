@@ -15,7 +15,7 @@ class ProductService
 
     public function all()
     {
-        return $this->productRepository->all();
+        return $this->productRepository->with(['detailProducts'])->all();
     }
 
     public function findByField($field, $value, $columns = ['*'])

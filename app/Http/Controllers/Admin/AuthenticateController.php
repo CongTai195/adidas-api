@@ -8,7 +8,7 @@ use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Request\LoginRequest;
-use \Illuminate\Http\JsonResponse;
+use Illuminate\Http\JsonResponse;
 
 class AuthenticateController extends Controller
 {
