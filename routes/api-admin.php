@@ -22,8 +22,20 @@ Route::group(['as' => 'admin.'], function () {
             Route::get('/', 'UserController@index')->name('index');
         });
 
+        Route::group(['prefix' => 'admin', 'as' => 'user.'], function () {
+            Route::get('/', 'AdminController@index')->name('index');
+        });
+
+        Route::group(['prefix' => 'category', 'as' => 'user.'], function () {
+            Route::get('/', 'CategoryController@index')->name('index');
+        });
+
         Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
             Route::get('/', 'ProductController@index')->name('index');
+        });
+
+        Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
+            Route::get('/', 'TransactionController@index')->name('index');
         });
     });
 });

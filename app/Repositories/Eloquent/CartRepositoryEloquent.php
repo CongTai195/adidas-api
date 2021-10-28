@@ -1,38 +1,37 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
+use App\Entities\Cart;
+use App\Repositories\CartRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\UserRepository;
-use App\Entities\User;
-use App\Validators\UserValidator;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
- * Class UserRepositoryEloquent.
+ * Class CartRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class UserRepositoryEloquent extends BaseRepository implements UserRepository
+class CartRepositoryEloquent extends BaseRepository implements CartRepository
 {
     /**
      * Specify Model class name
      *
      * @return string
      */
-    public function model()
+    public function model(): string
     {
-        return User::class;
+        return Cart::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
+     * @throws RepositoryException
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
+use App\Repositories\TransactionRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\TransactionRepository;
 use App\Entities\Transaction;
-use App\Validators\TransactionValidator;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Class TransactionRepositoryEloquent.
@@ -20,19 +20,18 @@ class TransactionRepositoryEloquent extends BaseRepository implements Transactio
      *
      * @return string
      */
-    public function model()
+    public function model(): string
     {
         return Transaction::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
+     * @throws RepositoryException
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }

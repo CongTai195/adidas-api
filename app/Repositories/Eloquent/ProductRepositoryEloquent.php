@@ -1,38 +1,37 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
+use App\Repositories\ProductRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\DetailProductRepository;
-use App\Entities\DetailProduct;
-use App\Validators\DetailProductValidator;
+use App\Entities\Product;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
- * Class DetailProductRepositoryEloquent.
+ * Class ProductRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class DetailProductRepositoryEloquent extends BaseRepository implements DetailProductRepository
+class ProductRepositoryEloquent extends BaseRepository implements ProductRepository
 {
     /**
      * Specify Model class name
      *
      * @return string
      */
-    public function model()
+    public function model(): string
     {
-        return DetailProduct::class;
+        return Product::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
+     * @throws RepositoryException
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }

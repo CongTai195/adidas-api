@@ -1,38 +1,37 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\CategoryRepository;
-use App\Entities\Category;
-use App\Validators\CategoryValidator;
+use App\Repositories\UserRepository;
+use App\Entities\User;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
- * Class CategoryRepositoryEloquent.
+ * Class UserRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
+class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
     /**
      * Specify Model class name
      *
      * @return string
      */
-    public function model()
+    public function model(): string
     {
-        return Category::class;
+        return User::class;
     }
 
-    
 
     /**
      * Boot up the repository, pushing criteria
+     * @throws RepositoryException
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }

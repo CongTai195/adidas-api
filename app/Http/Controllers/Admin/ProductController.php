@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\ResponseHelper;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ProductController
 {
@@ -16,13 +15,8 @@ class ProductController
         $this->productService = $productService;
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $data = $this->productService->all();
-        $result['total'] = count($data);
-        if (isset($request['page'])) {
-            $result['products'] = $data->forPage(1, 10);
-        }
-        return ResponseHelper::send($result);
+        return ResponseHelper::send($this->productService->all());
     }
 }
