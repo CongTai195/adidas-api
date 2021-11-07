@@ -25,7 +25,6 @@ class CreateTransactionsTable extends Migration
             $table->string('payment');
             $table->string('shipping');
             $table->string('message')->nullable();
-            $table->string('security');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

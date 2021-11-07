@@ -12,6 +12,7 @@ class ErrorCodeHelper
     public const NOT_ALLOW = 'NOT_ALLOW';
     public const INVALID = 'INVALID';
     public const INTEGER = 'INTEGER';
+    public const STRING = 'STRING';
     public const EXISTED = 'EXISTED';
     public const ARRAY = 'ARRAY';
     public const INACTIVE = 'INACTIVE';

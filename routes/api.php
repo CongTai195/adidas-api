@@ -28,6 +28,7 @@ Route::group(['as' => 'user.'], function () {
 
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
         Route::get('/{id}', 'TransactionController@index')->name('index');
+        Route::post('/', 'TransactionController@create')->name('create');
     });
 
     Route::group(['prefix' => 'order', 'as' => 'user.'], function () {

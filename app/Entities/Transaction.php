@@ -25,10 +25,11 @@ class Transaction extends Model implements Transformable
         'user_name',
         'user_email',
         'user_phone',
+        'user_address',
         'amount',
         'payment',
-        'message',
-        'security'
+        'shipping',
+        'message'
     ];
 
     public function orders(): HasMany

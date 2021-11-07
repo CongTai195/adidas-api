@@ -35,4 +35,8 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    public function insert(array $data)
+    {
+        return $this->model->insert($data);
+    }
 }
