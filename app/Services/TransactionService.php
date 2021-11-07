@@ -25,4 +25,14 @@ class TransactionService
         }
         return $this->transactionRepository->with($with)->findByField($field, $value, $columns);
     }
+
+    public function create(array $attributes)
+    {
+        return $this->transactionRepository->create($attributes);
+    }
+
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->transactionRepository->updateOrCreate($attributes, $values);
+    }
 }

@@ -371,8 +371,8 @@ class TransactionSeeder extends Seeder
     public function run()
     {
         DB::table('transactions')->insert([
-            ['status'=>1, 'user_id'=>2, 'user_name'=>'Thắng Quang', 'user_email'=>'thanghorit@gmail.com', 'user_address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'user_phone'=>'0971504302', 'amount'=>4040000, 'payment'=>'Thanh toán bằng ví momo', 'shipping'=>'Giao hàng nhanh', 'security'=>'TQ302-001'],
-            ['status'=>0, 'user_id'=>2, 'user_name'=>'Thắng Quang', 'user_email'=>'thanghorit@gmail.com', 'user_address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'user_phone'=>'0971504302', 'amount'=>9840000, 'payment'=>'Thanh toán sau khi nhận hàng', 'shipping'=>'Giao hàng nhanh', 'security'=>'TQ302-002'],
+            ['status'=>1, 'user_id'=>2, 'user_name'=>'Thắng Quang', 'user_email'=>'thanghorit@gmail.com', 'user_address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'user_phone'=>'0971504302', 'amount'=>4040000, 'payment'=>'Thanh toán bằng ví momo', 'shipping'=>'Giao hàng nhanh'],
+            ['status'=>0, 'user_id'=>2, 'user_name'=>'Thắng Quang', 'user_email'=>'thanghorit@gmail.com', 'user_address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'user_phone'=>'0971504302', 'amount'=>9840000, 'payment'=>'Thanh toán sau khi nhận hàng', 'shipping'=>'Giao hàng nhanh'],
         ]);
     }
 }
