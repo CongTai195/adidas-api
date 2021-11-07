@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
+/**
+ * @method static where(string $string, $userId)
+ */
 class Transaction extends Model implements Transformable
 {
     use TransformableTrait;

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
+/**
+ * @method static where(string $string, $userId)
+ */
 class Cart extends Model implements Transformable
 {
     use TransformableTrait;
