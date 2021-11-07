@@ -20,6 +20,6 @@ class ProductService
 
     public function findByField($field, $value, $columns = ['*'])
     {
-        return $this->productRepository->findByField($field, $value, $columns);
+        return $this->productRepository->with(['detailProducts'])->findByField($field, $value, $columns);
     }
 }

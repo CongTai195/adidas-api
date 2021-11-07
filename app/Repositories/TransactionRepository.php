@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface TransactionRepository extends RepositoryInterface
 {
-    //
+    public function deleteByUser($userId);
 }

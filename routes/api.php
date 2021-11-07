@@ -22,6 +22,7 @@ Route::group(['as' => 'user.'], function () {
     });
 
     Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
+        Route::get('/', 'ProductController@index')->name('index');
         Route::get('/{id}', 'ProductController@getDetailProduct')->name('getDetailProduct');
     });
 
@@ -33,11 +34,15 @@ Route::group(['as' => 'user.'], function () {
         Route::get('/{id}', 'OrderController@index')->name('index');
     });
 
-    Route::group(['prefix' => 'cart', 'as' => 'user.'], function () {
-        Route::get('/{id}', 'CartController@index')->name('index');
-    });
-
-    Route::group(['middleware' => 'api'], function () {
-       Route::get('/logout', 'AuthenticateController@logout')->name('logout');
+    Route::group(['middleware' => 'api-user'], function () {
+        Route::get('/logout', 'AuthenticateController@logout')->name('logout');
+        Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+            Route::get('/', 'UserController@index')->name('index');
+            Route::put('/update', 'UserController@update')->name('update');
+        });
+        Route::group(['prefix' => 'cart', 'as' => 'user.'], function () {
+            Route::get('/', 'CartController@index')->name('index');
+            Route::post('/create', 'CartController@create')->name('create');
+        });
     });
 });

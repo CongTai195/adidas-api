@@ -20,8 +20,13 @@ class ProductController
         $this->detailProductService = $detailProductService;
     }
 
+    public function index():JsonResponse
+    {
+        return ResponseHelper::send($this->productService->all());
+    }
+
     public function getDetailProduct($id): JsonResponse
     {
-        return ResponseHelper::send($this->detailProductService->findByField('product_id', $id));
+        return ResponseHelper::send($this->productService->findByField('id', $id));
     }
 }

@@ -22,4 +22,9 @@ class CartService
     {
         return $this->cartRepository->findByField($field, $value, $columns);
     }
+
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->cartRepository->updateOrCreate($attributes, $values);
+    }
 }
