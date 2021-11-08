@@ -30,4 +30,9 @@ class CartController
             ],
             $request->all()));
     }
+
+    public function delete($id): JsonResponse
+    {
+        return ResponseHelper::send($this->cartService->delete($id));
+    }
 }

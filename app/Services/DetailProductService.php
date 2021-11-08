@@ -21,4 +21,12 @@ class DetailProductService
     {
         return $this->detailProductRepository->findByField($field, $value, $columns);
     }
+
+    public function update(array $data)
+    {
+        foreach ($data as $detailProduct)
+        {
+            $this->detailProductRepository->updateQuantity($detailProduct['quantity'],$detailProduct['product_id'],$detailProduct['size']);
+        }
+    }
 }

@@ -19,7 +19,8 @@ class Order extends Model implements Transformable
     protected $fillable = [
         'transaction_id',
         'product_id',
-        'quantity'
+        'quantity',
+        'size'
     ];
 
     public function product(): HasOne

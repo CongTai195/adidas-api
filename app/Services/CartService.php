@@ -27,4 +27,9 @@ class CartService
     {
         return $this->cartRepository->updateOrCreate($attributes, $values);
     }
+
+    public function delete($id): int
+    {
+        return $this->cartRepository->delete($id);
+    }
 }

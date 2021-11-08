@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface DetailProductRepository extends RepositoryInterface
 {
-    //
+    public function updateQuantity($quantity, $productId, $size);
 }
