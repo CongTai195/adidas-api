@@ -29,6 +29,7 @@ Route::group(['as' => 'user.'], function () {
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
         Route::get('/{id}', 'TransactionController@index')->name('index');
         Route::post('/', 'TransactionController@create')->name('create');
+        Route::get('/update/{id}', 'TransactionController@update')->name('update');
     });
 
     Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
@@ -44,6 +45,7 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'cart', 'as' => 'user.'], function () {
             Route::get('/', 'CartController@index')->name('index');
             Route::post('/create', 'CartController@create')->name('create');
+            Route::get('/delete/{id}', 'CartController@delete')->name('delete');
         });
     });
 });

@@ -31,8 +31,8 @@ class TransactionService
         return $this->transactionRepository->create($attributes);
     }
 
-    public function updateOrCreate(array $attributes, array $values = [])
+    public function update(array $attributes, $id)
     {
-        return $this->transactionRepository->updateOrCreate($attributes, $values);
+        return $this->transactionRepository->update($attributes, $id);
     }
 }
