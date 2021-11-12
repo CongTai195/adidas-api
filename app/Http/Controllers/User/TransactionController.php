@@ -9,9 +9,9 @@ use App\Http\Request\CreateTransactionRequest;
 use App\Services\DetailProductService;
 use App\Services\OrderService;
 use App\Services\TransactionService;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -78,7 +78,7 @@ class TransactionController
             DB::rollBack();
             Log::error($e);
             return HandleException::catchQueryException($e);
-        }  catch (\Exception $e) {
+        }  catch (Exception $e) {
             DB::rollBack();
             Log::error($e);
             return CommonResponse::unknownResponse();
@@ -108,7 +108,7 @@ class TransactionController
             DB::rollBack();
             Log::error($e);
             return HandleException::catchQueryException($e);
-        }  catch (\Exception $e) {
+        }  catch (Exception $e) {
             DB::rollBack();
             Log::error($e);
             return CommonResponse::unknownResponse();

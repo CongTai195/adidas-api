@@ -20,6 +20,11 @@ Route::group(['as' => 'admin.'], function () {
 
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
             Route::get('/', 'UserController@index')->name('index');
+            Route::post('/', 'UserController@create')->name('create');
+            Route::put('/{id}', 'UserController@update')->name('update');
+            Route::get('/deleted-users', 'UserController@getDeletedUsers')->name('deleted-users');
+            Route::delete('/', 'UserController@deleteUsers')->name('delete-users');
+            Route::post('/restore-users', 'UserController@updateDeletedUsers')->name('restore-users');
         });
 
         Route::group(['prefix' => 'admin', 'as' => 'user.'], function () {
@@ -36,6 +41,10 @@ Route::group(['as' => 'admin.'], function () {
 
         Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
             Route::get('/', 'TransactionController@index')->name('index');
+        });
+
+        Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
+            Route::get('/{id}', 'OrderController@index')->name('index');
         });
     });
 });

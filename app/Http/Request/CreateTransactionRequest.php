@@ -32,7 +32,12 @@ class CreateTransactionRequest extends FormRequest
     {
         return [
             'user_name' => 'required|string',
-            'user_email' => 'required|string',
+            'user_email' => 'required|email',
+            'user_address' => 'required',
+            'shipping' => 'required|string',
+            'user_phone' => 'required|digits:10',
+            'amount' => 'required|numeric',
+            'payment' => 'required|string'
         ];
     }
 
@@ -43,12 +48,7 @@ class CreateTransactionRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'user_name.required' => ErrorCodeHelper::REQUIRED,
-            'user_email.required' => ErrorCodeHelper::REQUIRED,
-            'user_name.string' => ErrorCodeHelper::STRING,
-            'user_email.string' => ErrorCodeHelper::STRING,
-        ];
+        return [];
     }
 
     /**

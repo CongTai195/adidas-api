@@ -33,6 +33,8 @@ class CreateCartRequest extends FormRequest
         return [
             'user_id' => 'required|integer',
             'product_id' => 'required|integer',
+            'quantity' => 'required|integer',
+            'size' => 'required|integer',
         ];
     }
 
@@ -43,12 +45,7 @@ class CreateCartRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'user_id.required' => ErrorCodeHelper::REQUIRED,
-            'product_id.required' => ErrorCodeHelper::REQUIRED,
-            'user_id.integer' => ErrorCodeHelper::INTEGER,
-            'product_id.integer' => ErrorCodeHelper::INTEGER,
-        ];
+        return [];
     }
 
     /**

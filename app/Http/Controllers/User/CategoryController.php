@@ -40,6 +40,7 @@ class CategoryController
         }
         return ResponseHelper::send($categories);
     }
+
     public function getProductsForCategory($id): JsonResponse
     {
         return ResponseHelper::send($this->productService->findByField('category_id', $id));
