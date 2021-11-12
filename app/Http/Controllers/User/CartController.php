@@ -26,7 +26,8 @@ class CartController
         return ResponseHelper::send($this->cartService->updateOrCreate(
             [
                 'user_id' => $request['user_id'],
-                'product_id' => $request['product_id']
+                'product_id' => $request['product_id'],
+                'size' => $request['size']
             ],
             $request->all()));
     }

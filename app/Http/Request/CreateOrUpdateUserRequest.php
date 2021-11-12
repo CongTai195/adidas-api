@@ -2,7 +2,6 @@
 
 namespace App\Http\Request;
 
-use App\Helpers\ErrorCodeHelper;
 use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
@@ -11,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class LoginRequest extends FormRequest
+class CreateOrUpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +30,12 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required'
+            'name' => 'required|string',
+            'address' => 'required',
+            'phone' => 'required|digits:10',
+            'gender' => 'required|boolean',
+            'password' => 'required',
+            'email' => 'email',
         ];
     }
 

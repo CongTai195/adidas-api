@@ -6,10 +6,12 @@ use App\Helpers\CommonResponse;
 use App\Helpers\HandleException;
 use App\Helpers\ResponseHelper;
 use App\Services\UserService;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController
@@ -38,7 +40,33 @@ class UserController
             DB::rollBack();
             Log::error($e);
             return HandleException::catchQueryException($e);
-        }  catch (\Exception $e) {
+        }  catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return CommonResponse::unknownResponse();
+        }
+    }
+
+    public function create(Request $request): JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+            $data = [
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'gender' => $request['gender'],
+                'address' => $request['address'],
+                'phone' => $request['phone'],
+            ];
+            $transaction = $this->userService->create($data);
+            DB::commit();
+            return ResponseHelper::send($transaction);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error($e);
+            return HandleException::catchQueryException($e);
+        }  catch (Exception $e) {
             DB::rollBack();
             Log::error($e);
             return CommonResponse::unknownResponse();

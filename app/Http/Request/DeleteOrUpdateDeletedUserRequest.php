@@ -2,15 +2,15 @@
 
 namespace App\Http\Request;
 
-use App\Helpers\ErrorCodeHelper;
 use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CreateOrderRequest
+class DeleteOrUpdateDeletedUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,7 @@ class CreateOrderRequest
     public function rules(): array
     {
         return [
-            'transaction_id' => 'required|integer',
-            'product_id' => 'required|integer',
+            'ids' => 'required|array',
         ];
     }
 
@@ -42,12 +41,7 @@ class CreateOrderRequest
      */
     public function messages(): array
     {
-        return [
-            'transaction_id.required' => ErrorCodeHelper::REQUIRED,
-            'product_id.required' => ErrorCodeHelper::REQUIRED,
-            'transaction_id.integer' => ErrorCodeHelper::INTEGER,
-            'product_id.integer' => ErrorCodeHelper::INTEGER,
-        ];
+        return [];
     }
 
     /**

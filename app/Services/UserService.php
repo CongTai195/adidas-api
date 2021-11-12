@@ -32,6 +32,21 @@ class UserService
         return $this->userRepository->find($id, $column);
     }
 
+    public function getDeletedUsers()
+    {
+        return $this->userRepository->onlyTrashed()->get();
+    }
+
+    public function updateDeletedUsers(array $ids)
+    {
+        return $this->userRepository->withTrashed()->whereIn('id', $ids)->restore();
+    }
+
+    public function deleteUsers(array $ids)
+    {
+        return $this->userRepository->whereIn('id', $ids)->delete();
+    }
+
     public function update($data, $id)
     {
         return $this->userRepository->update($data, $id);
@@ -46,5 +61,10 @@ class UserService
     private function deleteForeignKey($id) {
         $this->transactionRepository->deleteByUser($id);
         $this->cartRepository->deleteByUser($id);
+    }
+
+    public function create(array $attributes)
+    {
+        return $this->userRepository->create($attributes);
     }
 }
