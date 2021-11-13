@@ -42,7 +42,7 @@ Route::group(['as' => 'admin.'], function () {
             Route::get('/', 'ProductController@index')->name('index');
             Route::post('/', 'ProductController@create')->name('create');
             Route::put('/{id}', 'ProductController@update')->name('update');
-            Route::delete('/', 'ProductController@deleteUsers')->name('delete-users');
+            Route::delete('/{id}', 'ProductController@delete')->name('delete');
         });
 
         Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
