@@ -47,9 +47,9 @@ class UserService
         return $this->userRepository->whereIn('id', $ids)->delete();
     }
 
-    public function update($data, $id)
+    public function update(array $attributes, $id)
     {
-        return $this->userRepository->update($data, $id);
+        return $this->userRepository->update($attributes, $id);
     }
 
     public function delete($id): int

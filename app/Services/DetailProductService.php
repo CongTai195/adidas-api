@@ -22,9 +22,9 @@ class DetailProductService
         return $this->detailProductRepository->findByField($field, $value, $columns);
     }
 
-    public function update(array $data)
+    public function update(array $attributes)
     {
-        foreach ($data as $detailProduct)
+        foreach ($attributes as $detailProduct)
         {
             $this->detailProductRepository->updateQuantity($detailProduct['quantity'],$detailProduct['product_id'],$detailProduct['size']);
         }

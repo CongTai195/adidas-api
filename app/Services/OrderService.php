@@ -23,8 +23,8 @@ class OrderService
         return $this->orderRepository->with(['product'])->findByField($field, $value, $columns);
     }
 
-    public function insert(array $data)
+    public function insert(array $attributes)
     {
-        return $this->orderRepository->insert($data);
+        return $this->orderRepository->insert($attributes);
     }
 }
