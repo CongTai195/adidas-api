@@ -21,7 +21,8 @@ class Product extends Model implements Transformable
         'category_id',
         'price',
         'description',
-        'image'
+        'image',
+        'image_list'
     ];
 
     public function detailProducts(): HasMany

@@ -38,8 +38,9 @@ class ProductService
         return $this->productRepository->update($attributes, $id);
     }
 
-    public function delete(array $ids)
+    public function delete(array $ids): int
     {
-        return $this->userRepository->whereIn('id', $ids)->delete();
+        $this->detailProductRepository->delete($ids);
+        return $this->productRepository->delete($ids);
     }
 }
