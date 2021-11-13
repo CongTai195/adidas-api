@@ -33,14 +33,21 @@ Route::group(['as' => 'admin.'], function () {
 
         Route::group(['prefix' => 'category', 'as' => 'user.'], function () {
             Route::get('/', 'CategoryController@index')->name('index');
+            Route::post('/', 'CategoryController@create')->name('create');
+            Route::put('/{id}', 'CategoryController@update')->name('update');
+            Route::delete('/', 'CategoryController@deleteUsers')->name('delete');
         });
 
         Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
             Route::get('/', 'ProductController@index')->name('index');
+            Route::post('/', 'ProductController@create')->name('create');
+            Route::put('/{id}', 'ProductController@update')->name('update');
+            Route::delete('/', 'ProductController@deleteUsers')->name('delete-users');
         });
 
         Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
             Route::get('/', 'TransactionController@index')->name('index');
+            Route::put('/{id}', 'TransactionController@update')->name('update');
         });
 
         Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
