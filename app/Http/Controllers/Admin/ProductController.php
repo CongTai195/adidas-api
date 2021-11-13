@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController
 {
@@ -36,12 +37,23 @@ class ProductController
                 'category_id' => $request['category_id'],
                 'price' => $request['price'],
                 'description' => $request['description'],
-                'image' => $request['image'],
-                'image_list' => $request['image_list'],
             ];
-            $transaction = $this->productService->create($data);
+            $product = $this->productService->create($data);
+            $imageMain = $request['image'];
+            $imageList = $request['image_list'];
+            $imageUrlsArr = [];
+            foreach ($imageList as $image) {
+                $imageName = $image->getClientOriginalName();
+                $pathImage = "product/" . $product->id . "/$imageName";
+                Storage::disk("public")->put($pathImage, file_get_contents($image));
+                array_push($imageUrlsArr,$pathImage);
+            }
+            $imageMainName = $imageMain->getClientOriginalName();
+            $pathImageMain = "product/" . $product->id . "/$imageMainName";
+            $imageUrls = implode(';', $imageUrlsArr);
+            $this->productService->update(["image" => $pathImageMain, "image_list" => $imageUrls], $product->id);
             DB::commit();
-            return ResponseHelper::send($transaction);
+            return ResponseHelper::send($product);
         } catch (QueryException $e) {
             DB::rollBack();
             Log::error($e);
@@ -53,7 +65,7 @@ class ProductController
         }
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update($id, Request $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -71,8 +83,9 @@ class ProductController
         }
     }
 
-    public function deleteUsers(Request $request): JsonResponse
+    public function delete($id): JsonResponse
     {
-        return ResponseHelper::send($this->productService->delete($request['ids']));
+        Storage::disk("public")->deleteDirectory("product/$id");
+        return ResponseHelper::send($this->productService->delete($id));
     }
 }
