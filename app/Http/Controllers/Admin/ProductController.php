@@ -70,4 +70,9 @@ class ProductController
             return CommonResponse::unknownResponse();
         }
     }
+
+    public function deleteUsers(Request $request): JsonResponse
+    {
+        return ResponseHelper::send($this->productService->delete($request['ids']));
+    }
 }
