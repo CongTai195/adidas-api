@@ -2,9 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\CommonResponse;
+use App\Helpers\HandleException;
+use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
+use App\Helpers\Status;
 use App\Services\CategoryService;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use function Symfony\Component\Translation\t;
 
 class CategoryController
 {
@@ -18,16 +29,15 @@ class CategoryController
 
     public function index(): JsonResponse
     {
-        $data = $this->categoryService->all()->toArray();
         $categories = array_filter(
-            $data,
+            $this->categoryService->all()->toArray(),
             function ($var) {
                 return is_null($var['type']);
             }
         );
         foreach($categories as $key => $category) {
             $subs = array_filter(
-                $data,
+                $this->categoryService->all()->toArray(),
                 function ($var) use ($category) {
                     return $var['type'] == $category['id'];
                 }
@@ -35,5 +45,74 @@ class CategoryController
             $categories[$key]['subs'] = $subs;
         }
         return ResponseHelper::send($categories);
+    }
+
+    public function create(Request $request): JsonResponse
+    {
+        if(isset($request['type']))
+        {
+            $categoriesArray = array_filter(
+                $this->categoryService->all()->toArray(),
+                function ($var) {
+                    return is_null($var['type']);
+                }
+            );
+            $categoriesTypeNullId = collect($categoriesArray)->pluck('id');
+            if(!in_array($request['type'], $categoriesTypeNullId->toArray()))
+            {
+                return ResponseHelper::send([], Status::NG, HttpCode::BAD_REQUEST, ['type' => 'The type field is wrong.']);
+            }
+        }
+        try {
+            DB::beginTransaction();
+            $data = [
+                'name' => $request['name'],
+                'type' => $request['type'],
+            ];
+            $category = $this->categoryService->create($data);
+            DB::commit();
+            return ResponseHelper::send($category);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error($e);
+            return HandleException::catchQueryException($e);
+        }  catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return CommonResponse::unknownResponse();
+        }
+    }
+
+    public function update($id, Request $request): JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+            $result = $this->categoryService->update($request->all(), $id);
+            DB::commit();
+            return ResponseHelper::send($result);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error($e);
+            return HandleException::catchQueryException($e);
+        }  catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return CommonResponse::unknownResponse();
+        }
+    }
+
+    public function deleteCategories(Request $request): JsonResponse
+    {
+        return ResponseHelper::send($this->categoryService->deleteCategories($request['ids']));
+    }
+
+    public function getDeletedCategories(): JsonResponse
+    {
+        return ResponseHelper::send($this->categoryService->getDeletedCategories());
+    }
+
+    public function updateDeletedCategories(Request $request): JsonResponse
+    {
+        return ResponseHelper::send($this->categoryService->updateDeletedCategories($request['ids']));
     }
 }

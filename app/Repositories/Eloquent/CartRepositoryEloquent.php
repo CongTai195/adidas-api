@@ -34,8 +34,4 @@ class CartRepositoryEloquent extends BaseRepository implements CartRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-
-    public function deleteByUser($userId) {
-        return Cart::where('user_id', $userId)->delete();
-    }
 }
