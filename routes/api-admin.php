@@ -35,14 +35,18 @@ Route::group(['as' => 'admin.'], function () {
             Route::get('/', 'CategoryController@index')->name('index');
             Route::post('/', 'CategoryController@create')->name('create');
             Route::put('/{id}', 'CategoryController@update')->name('update');
-            Route::delete('/', 'CategoryController@deleteUsers')->name('delete');
+            Route::get('/deleted-categories', 'CategoryController@getDeletedCategories')->name('deleted-categories');
+            Route::delete('/', 'CategoryController@deleteCategories')->name('delete');
+            Route::post('/restore-categories', 'CategoryController@updateDeletedCategories')->name('restore-categories');
         });
 
         Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
             Route::get('/', 'ProductController@index')->name('index');
             Route::post('/', 'ProductController@create')->name('create');
             Route::put('/{id}', 'ProductController@update')->name('update');
+            Route::get('/deleted-products', 'CategoryController@getDeletedProducts')->name('deleted-products');
             Route::delete('/{id}', 'ProductController@delete')->name('delete');
+            Route::post('/restore-products', 'CategoryController@updateDeletedProducts')->name('restore-products');
         });
 
         Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {

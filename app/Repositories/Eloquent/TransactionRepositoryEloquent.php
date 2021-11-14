@@ -34,8 +34,4 @@ class TransactionRepositoryEloquent extends BaseRepository implements Transactio
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-
-    public function deleteByUser($userId) {
-        return Transaction::where('user_id', $userId)->delete();
-    }
 }

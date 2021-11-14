@@ -44,23 +44,13 @@ class UserService
 
     public function deleteUsers(array $ids)
     {
+        $this->cartRepository->whereIn('user_id', $ids)->delete();
         return $this->userRepository->whereIn('id', $ids)->delete();
     }
 
     public function update(array $attributes, $id)
     {
         return $this->userRepository->update($attributes, $id);
-    }
-
-    public function delete($id): int
-    {
-        $this->deleteForeignKey($id);
-        return $this->userRepository->delete($id);
-    }
-
-    private function deleteForeignKey($id) {
-        $this->transactionRepository->deleteByUser($id);
-        $this->cartRepository->deleteByUser($id);
     }
 
     public function create(array $attributes)

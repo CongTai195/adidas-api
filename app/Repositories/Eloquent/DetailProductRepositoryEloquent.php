@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\DetailProductRepository;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Statement;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Entities\DetailProduct;
