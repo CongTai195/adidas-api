@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\CommonResponse;
 use App\Helpers\HandleException;
 use App\Helpers\ResponseHelper;
+use App\Http\Request\CreateOrUpdateProductRequest;
+use App\Http\Request\DeleteOrUpdateDeletedRequest;
 use App\Services\ProductService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +29,7 @@ class ProductController
         return ResponseHelper::send($this->productService->all());
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(CreateOrUpdateProductRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -50,6 +51,7 @@ class ProductController
             }
             $imageMainName = $imageMain->getClientOriginalName();
             $pathImageMain = "product/" . $product->id . "/$imageMainName";
+            Storage::disk("public")->put($pathImageMain, file_get_contents($imageMain));
             $imageUrls = implode(';', $imageUrlsArr);
             $this->productService->update(["image" => $pathImageMain, "image_list" => $imageUrls], $product->id);
             DB::commit();
@@ -65,7 +67,7 @@ class ProductController
         }
     }
 
-    public function update($id, Request $request): JsonResponse
+    public function update($id, CreateOrUpdateProductRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -83,9 +85,21 @@ class ProductController
         }
     }
 
-    public function delete($id): JsonResponse
+    public function deleteProducts(DeleteOrUpdateDeletedRequest $request): JsonResponse
     {
-        Storage::disk("public")->deleteDirectory("product/$id");
-        return ResponseHelper::send($this->productService->delete($id));
+//        foreach ($request['ids'] as $id) {
+//            Storage::disk("public")->deleteDirectory("product/$id");
+//        }
+        return ResponseHelper::send($this->productService->deleteProducts($request['ids']));
+    }
+
+    public function getDeletedProducts(): JsonResponse
+    {
+        return ResponseHelper::send($this->productService->getDeletedProducts());
+    }
+
+    public function updateDeletedProducts(DeleteOrUpdateDeletedRequest $request): JsonResponse
+    {
+        return ResponseHelper::send($this->productService->updateDeletedProducts($request['ids']));
     }
 }

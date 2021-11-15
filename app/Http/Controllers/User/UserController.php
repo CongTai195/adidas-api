@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Helpers\CommonResponse;
 use App\Helpers\HandleException;
 use App\Helpers\ResponseHelper;
+use App\Http\Request\CreateOrUpdateUserRequest;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -28,26 +29,7 @@ class UserController
         return ResponseHelper::send(auth('api')->user());
     }
 
-    public function update(Request $request): JsonResponse
-    {
-        try {
-            DB::beginTransaction();
-            $userId = auth('api')->user()['id'];
-            $result = $this->userService->update($request->all(), $userId);
-            DB::commit();
-            return ResponseHelper::send($result);
-        } catch (QueryException $e) {
-            DB::rollBack();
-            Log::error($e);
-            return HandleException::catchQueryException($e);
-        }  catch (Exception $e) {
-            DB::rollBack();
-            Log::error($e);
-            return CommonResponse::unknownResponse();
-        }
-    }
-
-    public function create(Request $request): JsonResponse
+    public function create(CreateOrUpdateUserRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -62,6 +44,25 @@ class UserController
             $transaction = $this->userService->create($data);
             DB::commit();
             return ResponseHelper::send($transaction);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error($e);
+            return HandleException::catchQueryException($e);
+        }  catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return CommonResponse::unknownResponse();
+        }
+    }
+
+    public function update(CreateOrUpdateUserRequest $request): JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+            $userId = auth('api')->user()['id'];
+            $result = $this->userService->update($request->all(), $userId);
+            DB::commit();
+            return ResponseHelper::send($result);
         } catch (QueryException $e) {
             DB::rollBack();
             Log::error($e);

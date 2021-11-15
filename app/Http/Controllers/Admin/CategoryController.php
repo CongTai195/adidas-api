@@ -7,6 +7,8 @@ use App\Helpers\HandleException;
 use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
+use App\Http\Request\CreateOrUpdateCategoryRequest;
+use App\Http\Request\DeleteOrUpdateDeletedRequest;
 use App\Services\CategoryService;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -14,8 +16,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use function Symfony\Component\Translation\t;
 
 class CategoryController
 {
@@ -47,7 +47,7 @@ class CategoryController
         return ResponseHelper::send($categories);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(CreateOrUpdateCategoryRequest $request): JsonResponse
     {
         if(isset($request['type']))
         {
@@ -83,7 +83,7 @@ class CategoryController
         }
     }
 
-    public function update($id, Request $request): JsonResponse
+    public function update($id, CreateOrUpdateCategoryRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -101,7 +101,7 @@ class CategoryController
         }
     }
 
-    public function deleteCategories(Request $request): JsonResponse
+    public function deleteCategories(DeleteOrUpdateDeletedRequest $request): JsonResponse
     {
         return ResponseHelper::send($this->categoryService->deleteCategories($request['ids']));
     }
@@ -111,7 +111,7 @@ class CategoryController
         return ResponseHelper::send($this->categoryService->getDeletedCategories());
     }
 
-    public function updateDeletedCategories(Request $request): JsonResponse
+    public function updateDeletedCategories(DeleteOrUpdateDeletedRequest $request): JsonResponse
     {
         return ResponseHelper::send($this->categoryService->updateDeletedCategories($request['ids']));
     }

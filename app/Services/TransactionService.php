@@ -15,7 +15,7 @@ class TransactionService
 
     public function all()
     {
-        return $this->transactionRepository->with(['orders'])->all();
+        return $this->transactionRepository->with(['orders', 'orders.product'])->all();
     }
 
     public function findByField($field, $value, $with = [], $columns = ['*'])
@@ -31,8 +31,8 @@ class TransactionService
         return $this->transactionRepository->create($attributes);
     }
 
-    public function update(array $attributes, $id)
+    public function update($status, $id)
     {
-        return $this->transactionRepository->update($attributes, $id);
+        return $this->transactionRepository->update(['status'=>$status], $id);
     }
 }

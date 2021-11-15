@@ -29,4 +29,19 @@ class DetailProductService
             $this->detailProductRepository->updateQuantity($detailProduct['quantity'],$detailProduct['product_id'],$detailProduct['size']);
         }
     }
+
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->detailProductRepository->updateOrCreate($attributes, $values);
+    }
+
+    public function delete($id): int
+    {
+        return $this->detailProductRepository->delete($id);
+    }
+
+    public function deleteDetailProducts(array $ids)
+    {
+        return $this->detailProductRepository->whereIn('id', $ids)->delete();
+    }
 }

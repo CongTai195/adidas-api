@@ -38,9 +38,24 @@ class ProductService
         return $this->productRepository->update($attributes, $id);
     }
 
-    public function delete($id)
+    public function deleteProducts(array $ids)
     {
-        $this->detailProductRepository->where('product_id', $id)->delete();
-        return $this->productRepository->delete($id);
+        $this->detailProductRepository->whereIn('product_id', $ids)->delete();
+        return $this->productRepository->whereIn('id', $ids)->delete();
+    }
+
+    public function getDeletedProducts()
+    {
+        return $this->productRepository->onlyTrashed()->get();
+    }
+
+    public function updateDeletedProducts(array $ids)
+    {
+        return $this->productRepository->withTrashed()->whereIn('id', $ids)->restore();
+    }
+
+    public function updateView($id)
+    {
+        return $this->productRepository->updateView($id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Request;
 
+use App\Helpers\ErrorCodeHelper;
 use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class DeleteOrUpdateDeletedUserRequest extends FormRequest
+class CreateOrUpdateCartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +31,10 @@ class DeleteOrUpdateDeletedUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids' => 'required|array',
+            'user_id' => 'required|integer',
+            'product_id' => 'required|integer',
+            'quantity' => 'required|integer',
+            'size' => 'required|integer',
         ];
     }
 

@@ -26,14 +26,15 @@ class CategoryService
     {
         return $this->categoryRepository->all();
     }
-    public function getDeletedCategories()
+
+    public function create(array $attributes)
     {
-        return $this->categoryRepository->onlyTrashed()->get();
+        return $this->categoryRepository->create($attributes);
     }
 
-    public function updateDeletedCategories(array $ids)
+    public function update(array $attributes, $id)
     {
-        return $this->categoryRepository->withTrashed()->whereIn('id', $ids)->restore();
+        return $this->categoryRepository->update($attributes, $id);
     }
 
     public function deleteCategories(array $ids)
@@ -43,13 +44,13 @@ class CategoryService
         return $this->categoryRepository->whereIn('id', $ids)->delete();
     }
 
-    public function update(array $attributes, $id)
+    public function getDeletedCategories()
     {
-        return $this->categoryRepository->update($attributes, $id);
+        return $this->categoryRepository->onlyTrashed()->get();
     }
 
-    public function create(array $attributes)
+    public function updateDeletedCategories(array $ids)
     {
-        return $this->categoryRepository->create($attributes);
+        return $this->categoryRepository->withTrashed()->whereIn('id', $ids)->restore();
     }
 }

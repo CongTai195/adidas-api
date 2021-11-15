@@ -29,4 +29,9 @@ class ProductController
     {
         return ResponseHelper::send($this->productService->findByField('id', $id));
     }
+
+    public function updateView($id): JsonResponse
+    {
+        return ResponseHelper::send($this->productService->updateView($id));
+    }
 }
