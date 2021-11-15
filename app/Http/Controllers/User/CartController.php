@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Helpers\ResponseHelper;
-use App\Http\Request\CreateCartRequest;
+use App\Http\Request\CreateOrUpdateCartRequest;
 use App\Services\CartService;
 use Illuminate\Http\JsonResponse;
 
@@ -21,7 +21,7 @@ class CartController
         return ResponseHelper::send($this->cartService->findByField('user_id', auth('api')->user()['id']));
     }
 
-    public function create(CreateCartRequest $request): JsonResponse
+    public function createOrUpdate(CreateOrUpdateCartRequest $request): JsonResponse
     {
         return ResponseHelper::send($this->cartService->updateOrCreate(
             [

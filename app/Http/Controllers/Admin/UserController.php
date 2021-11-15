@@ -8,12 +8,11 @@ use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
 use App\Http\Request\CreateOrUpdateUserRequest;
-use App\Http\Request\DeleteOrUpdateDeletedUserRequest;
+use App\Http\Request\DeleteOrUpdateDeletedRequest;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -30,39 +29,6 @@ class UserController
     public function index(): JsonResponse
     {
         return ResponseHelper::send($this->userService->all());
-    }
-
-    public function deleteUsers(DeleteOrUpdateDeletedUserRequest $request): JsonResponse
-    {
-        return ResponseHelper::send($this->userService->deleteUsers($request['ids']));
-    }
-
-    public function getDeletedUsers(): JsonResponse
-    {
-        return ResponseHelper::send($this->userService->getDeletedUsers());
-    }
-
-    public function updateDeletedUsers(DeleteOrUpdateDeletedUserRequest $request): JsonResponse
-    {
-        return ResponseHelper::send($this->userService->updateDeletedUsers($request['ids']));
-    }
-
-    public function update($id ,CreateOrUpdateUserRequest $request): JsonResponse
-    {
-        try {
-            DB::beginTransaction();
-            $result = $this->userService->update($request->all(), $id);
-            DB::commit();
-            return ResponseHelper::send($result);
-        } catch (QueryException $e) {
-            DB::rollBack();
-            Log::error($e);
-            return HandleException::catchQueryException($e);
-        }  catch (Exception $e) {
-            DB::rollBack();
-            Log::error($e);
-            return CommonResponse::unknownResponse();
-        }
     }
 
     public function create(CreateOrUpdateUserRequest $request): JsonResponse
@@ -92,5 +58,38 @@ class UserController
             Log::error($e);
             return CommonResponse::unknownResponse();
         }
+    }
+
+    public function update($id ,CreateOrUpdateUserRequest $request): JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+            $result = $this->userService->update($request->all(), $id);
+            DB::commit();
+            return ResponseHelper::send($result);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error($e);
+            return HandleException::catchQueryException($e);
+        }  catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return CommonResponse::unknownResponse();
+        }
+    }
+
+    public function deleteUsers(DeleteOrUpdateDeletedRequest $request): JsonResponse
+    {
+        return ResponseHelper::send($this->userService->deleteUsers($request['ids']));
+    }
+
+    public function getDeletedUsers(): JsonResponse
+    {
+        return ResponseHelper::send($this->userService->getDeletedUsers());
+    }
+
+    public function updateDeletedUsers(DeleteOrUpdateDeletedRequest $request): JsonResponse
+    {
+        return ResponseHelper::send($this->userService->updateDeletedUsers($request['ids']));
     }
 }

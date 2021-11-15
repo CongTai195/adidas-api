@@ -15,7 +15,12 @@ class OrderController
         $this->orderService = $orderService;
     }
 
-    public function index($id): JsonResponse
+    public function index(): JsonResponse
+    {
+        return ResponseHelper::send($this->orderService->all());
+    }
+
+    public function getDetail($id): JsonResponse
     {
         return ResponseHelper::send($this->orderService->findByField('transaction_id', $id));
     }

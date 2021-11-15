@@ -44,18 +44,27 @@ Route::group(['as' => 'admin.'], function () {
             Route::get('/', 'ProductController@index')->name('index');
             Route::post('/', 'ProductController@create')->name('create');
             Route::put('/{id}', 'ProductController@update')->name('update');
-            Route::get('/deleted-products', 'CategoryController@getDeletedProducts')->name('deleted-products');
-            Route::delete('/{id}', 'ProductController@delete')->name('delete');
-            Route::post('/restore-products', 'CategoryController@updateDeletedProducts')->name('restore-products');
+            Route::get('/deleted-products', 'ProductController@getDeletedProducts')->name('deleted-products');
+            Route::delete('/', 'ProductController@deleteProducts')->name('delete');
+            Route::post('/restore-products', 'ProductController@updateDeletedProducts')->name('restore-products');
+        });
+
+        Route::group(['prefix' => 'detail-product', 'as' => 'user.'], function () {
+            Route::get('/', 'DetailProductController@index')->name('index');
+            Route::get('/{id}', 'DetailProductController@getDetail')->name('getDetail');
+            Route::post('/', 'DetailProductController@createOrUpdate')->name('createOrUpdate');
+            Route::delete('/', 'DetailProductController@deleteDetailProducts')->name('delete');
         });
 
         Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
             Route::get('/', 'TransactionController@index')->name('index');
+            Route::get('/{id}', 'TransactionController@getDetail')->name('getDetail');
             Route::put('/{id}', 'TransactionController@update')->name('update');
         });
 
         Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
-            Route::get('/{id}', 'OrderController@index')->name('index');
+            Route::get('/', 'OrderController@index')->name('index');
+            Route::get('/{id}', 'OrderController@getDetail')->name('getDetail');
         });
     });
 });

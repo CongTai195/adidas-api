@@ -26,6 +26,7 @@ Route::group(['as' => 'user.'], function () {
     Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
         Route::get('/', 'ProductController@index')->name('index');
         Route::get('/{id}', 'ProductController@getDetailProduct')->name('getDetailProduct');
+        Route::put('/{id}', 'ProductController@updateView')->name('updateView');
     });
 
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
@@ -46,7 +47,7 @@ Route::group(['as' => 'user.'], function () {
         });
         Route::group(['prefix' => 'cart', 'as' => 'user.'], function () {
             Route::get('/', 'CartController@index')->name('index');
-            Route::post('/', 'CartController@create')->name('create');
+            Route::post('/', 'CartController@createOrUpdate')->name('createOrUpdate');
             Route::delete('/{id}', 'CartController@delete')->name('delete');
         });
     });
