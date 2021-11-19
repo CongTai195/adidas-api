@@ -29,6 +29,12 @@ Route::group(['as' => 'user.'], function () {
         Route::put('/{id}', 'ProductController@updateView')->name('updateView');
     });
 
+    Route::group(['prefix' => 'comment', 'as' => 'user.'], function () {
+        Route::get('/{id}', 'CommentController@index')->name('index');
+        Route::post('/', 'CommentController@create')->name('create');
+        Route::put('/{id}', 'CommentController@update')->name('update');
+    });
+
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
         Route::get('/{id}', 'TransactionController@index')->name('index');
         Route::post('/', 'TransactionController@create')->name('create');

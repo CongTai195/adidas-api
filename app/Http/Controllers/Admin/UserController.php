@@ -60,7 +60,7 @@ class UserController
         }
     }
 
-    public function update($id ,CreateOrUpdateUserRequest $request): JsonResponse
+    public function update($id, CreateOrUpdateUserRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();

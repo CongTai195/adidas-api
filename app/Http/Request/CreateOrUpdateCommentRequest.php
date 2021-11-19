@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CreateOrUpdateProductRequest extends FormRequest
+class CreateOrUpdateCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,11 +30,10 @@ class CreateOrUpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'category_id' => 'required|numeric',
-            'price' => 'required|numeric',
-            'description' => 'required|string',
-            'specifications' => 'required|string'
+            'product_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'star' => 'required|integer',
+            'content' => 'required|string',
         ];
     }
 
