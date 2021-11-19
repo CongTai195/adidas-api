@@ -24,7 +24,7 @@ class UserService
 
     public function all()
     {
-        return $this->userRepository->all();
+        return $this->userRepository->whereNotIn('id', [1])->withTrashed()->get();
     }
 
     public function get($id, $column = ['*'])

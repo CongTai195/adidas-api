@@ -43,7 +43,7 @@ Route::group(['as' => 'admin.'], function () {
         Route::group(['prefix' => 'product', 'as' => 'user.'], function () {
             Route::get('/', 'ProductController@index')->name('index');
             Route::post('/', 'ProductController@create')->name('create');
-            Route::put('/{id}', 'ProductController@update')->name('update');
+            Route::post('/{id}', 'ProductController@update')->name('update');
             Route::get('/deleted-products', 'ProductController@getDeletedProducts')->name('deleted-products');
             Route::delete('/', 'ProductController@deleteProducts')->name('delete');
             Route::post('/restore-products', 'ProductController@updateDeletedProducts')->name('restore-products');

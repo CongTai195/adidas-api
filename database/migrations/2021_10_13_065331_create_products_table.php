@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('category_id')->unsigned();
             $table->integer('price');
             $table->longText('description')->nullable();
+            $table->longText('specifications')->nullable();
             $table->string('image')->nullable();
             $table->text('image_list')->nullable();
             $table->integer('view')->default(0);

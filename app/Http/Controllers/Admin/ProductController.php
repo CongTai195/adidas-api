@@ -71,7 +71,20 @@ class ProductController
     {
         try {
             DB::beginTransaction();
-            $result = $this->productService->update($request->all(), $id);
+            $imageMain = $request['image'];
+            $imageList = $request['image_list'];
+            $imageUrlsArr = [];
+            foreach ($imageList as $image) {
+                $imageName = $image->getClientOriginalName();
+                $pathImage = "product/" . $id . "/$imageName";
+                Storage::disk("public")->put($pathImage, file_get_contents($image));
+                array_push($imageUrlsArr,$pathImage);
+            }
+            $imageMainName = $imageMain->getClientOriginalName();
+            $pathImageMain = "product/" . $id . "/$imageMainName";
+            Storage::disk("public")->put($pathImageMain, file_get_contents($imageMain));
+            $imageUrls = implode(';', $imageUrlsArr);
+            $result = $this->productService->update(["name"=> $request['name'], "price"=> $request['price'], "category_id"=> $request['category_id'], "description"=> $request['description'], "image" => $pathImageMain, "image_list" => $imageUrls], $id);
             DB::commit();
             return ResponseHelper::send($result);
         } catch (QueryException $e) {
@@ -87,9 +100,6 @@ class ProductController
 
     public function deleteProducts(DeleteOrUpdateDeletedRequest $request): JsonResponse
     {
-//        foreach ($request['ids'] as $id) {
-//            Storage::disk("public")->deleteDirectory("product/$id");
-//        }
         return ResponseHelper::send($this->productService->deleteProducts($request['ids']));
     }
 
