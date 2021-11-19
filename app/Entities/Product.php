@@ -22,6 +22,7 @@ class Product extends Model implements Transformable
         'category_id',
         'price',
         'description',
+        'specifications',
         'image',
         'image_list'
     ];

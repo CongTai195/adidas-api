@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DetailProductSeeder::class);
         $this->call(TransactionSeeder::class);
         $this->call(OrderSeeder::class);
+        $this->call(CommentSeeder::class);
     }
 }
 
@@ -398,24 +399,24 @@ class CommentSeeder extends Seeder
     public function run()
     {
         DB::table('comments')->insert([
-            ['product_id'=>1, 'star'=>'5', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>1, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>1, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>2, 'star'=>'1', 'content'=>'Mẫu và giày gửi khác nhau.Shop nói là form mẫu mới. Ai muốn mua hãy lưu ý nha.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>2, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>2, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>3, 'star'=>'3', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>3, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>3, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>4, 'star'=>'5', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>4, 'star'=>'4', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>4, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>5, 'star'=>'5', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>5, 'star'=>'4', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>5, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>6, 'star'=>'2', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>6, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
-            ['product_id'=>6, 'star'=>'4', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>1, 'user_id'=>2, 'star'=>'5', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>1, 'user_id'=>3, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
+//            ['product_id'=>1, 'user_id'=>1, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
+//            ['product_id'=>2, 'user_id'=>1, 'star'=>'1', 'content'=>'Mẫu và giày gửi khác nhau.Shop nói là form mẫu mới. Ai muốn mua hãy lưu ý nha.', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>2, 'user_id'=>2, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>2, 'user_id'=>3, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>3, 'user_id'=>3, 'star'=>'3', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>3, 'user_id'=>2, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
+//            ['product_id'=>3, 'user_id'=>1, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
+//            ['product_id'=>4, 'user_id'=>1, 'star'=>'5', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>4, 'user_id'=>3, 'star'=>'4', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>4, 'user_id'=>2, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>5, 'user_id'=>2, 'star'=>'5', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
+//            ['product_id'=>5, 'user_id'=>1, 'star'=>'4', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>5, 'user_id'=>3, 'star'=>'5', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>6, 'user_id'=>3, 'star'=>'2', 'content'=>'Sản phẩm tốt, mang oke! 10đ tuyệt vời', 'created_at' => date("Y-m-d H:i:s")],
+            ['product_id'=>6, 'user_id'=>2, 'star'=>'5', 'content'=>'Sản phẩm khá ổn. Đi êm chân. Khả năng có lương lại ủng hộ shop đôi nữa. Giao hàng rất nhanh. 10h hôm trước đặt. 5h chiều hôm sau đã giao rồi.', 'created_at' => date("Y-m-d H:i:s")],
+//            ['product_id'=>6, 'user_id'=>1, 'star'=>'4', 'content'=>'Giao hàng nhanh, gói hàng kĩ càng, hộp vẫn còn nguyên k móp méo gì. Chất lượng giày ở mức ổn chứ k xuất sắc lắm. Đáng tiền', 'created_at' => date("Y-m-d H:i:s")],
         ]);
     }
 }

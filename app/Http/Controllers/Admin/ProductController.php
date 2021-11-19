@@ -38,6 +38,7 @@ class ProductController
                 'category_id' => $request['category_id'],
                 'price' => $request['price'],
                 'description' => $request['description'],
+                'specifications' => $request['specifications'],
             ];
             $product = $this->productService->create($data);
             $imageMain = $request['image'];
@@ -84,7 +85,7 @@ class ProductController
             $pathImageMain = "product/" . $id . "/$imageMainName";
             Storage::disk("public")->put($pathImageMain, file_get_contents($imageMain));
             $imageUrls = implode(';', $imageUrlsArr);
-            $result = $this->productService->update(["name"=> $request['name'], "price"=> $request['price'], "category_id"=> $request['category_id'], "description"=> $request['description'], "image" => $pathImageMain, "image_list" => $imageUrls], $id);
+            $result = $this->productService->update(["name"=> $request['name'], "price"=> $request['price'], "category_id"=> $request['category_id'], "specifications"=> $request['specifications'], "description"=> $request['description'], "image" => $pathImageMain, "image_list" => $imageUrls], $id);
             DB::commit();
             return ResponseHelper::send($result);
         } catch (QueryException $e) {
