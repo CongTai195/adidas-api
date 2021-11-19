@@ -4,17 +4,14 @@ namespace App\Http\Controllers\User;
 
 use App\Helpers\CommonResponse;
 use App\Helpers\HandleException;
-use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
-use App\Helpers\Status;
-use App\Http\Request\CreateOrUpdateCommentRequest;
-use App\Http\Request\CreateOrUpdateUserRequest;
+use App\Http\Request\CreateCommentRequest;
 use App\Services\CommentService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class CommentController
@@ -31,13 +28,13 @@ class CommentController
         return ResponseHelper::send($this->commentService->findByField('product_id', $id));
     }
 
-    public function create(CreateOrUpdateCommentRequest $request): JsonResponse
+    public function create(CreateCommentRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
             $data = [
                 'product_id' => $request['product_id'],
-                'user_id' => $request['user_id'],
+                'user_id' => auth('api')->user()['id'],
                 'star' => $request['star'],
                 'content' => $request['content'],
             ];
@@ -55,7 +52,12 @@ class CommentController
         }
     }
 
-//    public function update($id, CreateOrUpdateCommentRequest $request): JsonResponse
+    public function getAccordingToStar($id, Request $request): JsonResponse
+    {
+        return ResponseHelper::send($this->commentService->getAccordingToStar($id, $request['star']));
+    }
+
+//    public function update($id, CreateCommentRequest $request): JsonResponse
 //    {
 //        try {
 //            DB::beginTransaction();

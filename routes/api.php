@@ -27,12 +27,12 @@ Route::group(['as' => 'user.'], function () {
         Route::get('/', 'ProductController@index')->name('index');
         Route::get('/{id}', 'ProductController@getDetailProduct')->name('getDetailProduct');
         Route::put('/{id}', 'ProductController@updateView')->name('updateView');
+        Route::get('/user/search', 'ProductController@search')->name('search');
     });
 
     Route::group(['prefix' => 'comment', 'as' => 'user.'], function () {
         Route::get('/{id}', 'CommentController@index')->name('index');
-        Route::post('/', 'CommentController@create')->name('create');
-        Route::put('/{id}', 'CommentController@update')->name('update');
+        Route::get('/{id}', 'CommentController@getAccordingToStar')->name('getAccordingToStar');
     });
 
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
@@ -55,6 +55,10 @@ Route::group(['as' => 'user.'], function () {
             Route::get('/', 'CartController@index')->name('index');
             Route::post('/', 'CartController@createOrUpdate')->name('createOrUpdate');
             Route::delete('/{id}', 'CartController@delete')->name('delete');
+        });
+
+        Route::group(['prefix' => 'comment', 'as' => 'user.'], function () {
+            Route::post('/', 'CommentController@create')->name('create');
         });
     });
 });

@@ -47,6 +47,7 @@ Route::group(['as' => 'admin.'], function () {
             Route::get('/deleted-products', 'ProductController@getDeletedProducts')->name('deleted-products');
             Route::delete('/', 'ProductController@deleteProducts')->name('delete');
             Route::post('/restore-products', 'ProductController@updateDeletedProducts')->name('restore-products');
+            Route::get('/search-products', 'ProductController@search')->name('search');
         });
 
         Route::group(['prefix' => 'detail-product', 'as' => 'user.'], function () {
@@ -65,6 +66,7 @@ Route::group(['as' => 'admin.'], function () {
         Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
             Route::get('/', 'OrderController@index')->name('index');
             Route::get('/{id}', 'OrderController@getDetail')->name('getDetail');
+            Route::get('/admin/detail-budget', 'OrderController@detailBudget')->name('detailBudget');
         });
     });
 });

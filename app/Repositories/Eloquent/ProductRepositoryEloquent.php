@@ -40,4 +40,9 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     {
         return DB::statement("UPDATE products SET view = view + 1 WHERE id = $id");
     }
+
+    public function search($string)
+    {
+        return $this->model->where('name', 'like', '%' . $string . '%')->get();
+    }
 }

@@ -24,4 +24,9 @@ class OrderController
     {
         return ResponseHelper::send($this->orderService->findByField('transaction_id', $id));
     }
+
+    public function detailBudget(): JsonResponse
+    {
+        return ResponseHelper::send($this->orderService->detailBudget());
+    }
 }
