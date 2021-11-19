@@ -27,4 +27,14 @@ class OrderService
     {
         return $this->orderRepository->insert($attributes);
     }
+
+    public function delete($id)
+    {
+        return $this->orderRepository->where('transaction_id', $id)->delete();
+    }
+
+    public function detailBudget()
+    {
+        return $this->orderRepository->calculate();
+    }
 }

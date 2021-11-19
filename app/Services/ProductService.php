@@ -58,4 +58,9 @@ class ProductService
     {
         return $this->productRepository->updateView($id);
     }
+
+    public function search($string)
+    {
+        return $this->productRepository->search($string);
+    }
 }

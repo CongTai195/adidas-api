@@ -11,6 +11,7 @@ use App\Services\ProductService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -112,5 +113,10 @@ class ProductController
     public function updateDeletedProducts(DeleteOrUpdateDeletedRequest $request): JsonResponse
     {
         return ResponseHelper::send($this->productService->updateDeletedProducts($request['ids']));
+    }
+
+    public function search(Request $request): JsonResponse
+    {
+        return ResponseHelper::send($this->productService->search($request['name']));
     }
 }

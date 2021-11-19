@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CreateOrUpdateCommentRequest extends FormRequest
+class CreateCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +31,7 @@ class CreateOrUpdateCommentRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer',
-            'user_id' => 'required|integer',
-            'star' => 'required|integer',
+            'star' => 'required|numeric|between:1,5',
             'content' => 'required|string',
         ];
     }

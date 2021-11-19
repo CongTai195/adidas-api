@@ -15,4 +15,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface ProductRepository extends RepositoryInterface
 {
     public function updateView($id);
+    public function search($string);
 }

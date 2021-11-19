@@ -6,6 +6,7 @@ use App\Helpers\ResponseHelper;
 use App\Services\DetailProductService;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ProductController
 {
@@ -33,5 +34,10 @@ class ProductController
     public function updateView($id): JsonResponse
     {
         return ResponseHelper::send($this->productService->updateView($id));
+    }
+
+    public function search(Request $request): JsonResponse
+    {
+        return ResponseHelper::send($this->productService->search($request['name']));
     }
 }

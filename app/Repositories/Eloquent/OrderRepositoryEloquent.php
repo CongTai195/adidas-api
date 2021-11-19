@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OrderRepository;
@@ -38,5 +39,15 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function insert(array $data)
     {
         return $this->model->insert($data);
+    }
+
+    public function calculate()
+    {
+        return $this->model
+            ->selectRaw('product_id, SUM(quantity) as quantity, SUM(products.price * quantity) as price')
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->groupBy('product_id')
+            ->orderBy('product_id')
+            ->get();
     }
 }
