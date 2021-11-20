@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,10 +45,22 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     public function calculate()
     {
         return $this->model
-            ->selectRaw('product_id, SUM(quantity) as quantity, SUM(products.price * quantity) as price')
+            ->selectRaw('product_id, SUM(quantity) as quantity, SUM(products.price * quantity) as price, products.name')
             ->join('products', 'orders.product_id', '=', 'products.id')
             ->groupBy('product_id')
             ->orderBy('product_id')
+            ->get();
+    }
+
+    public function calculateMonth($month, $year)
+    {
+        return $this->model
+            ->selectRaw('product_id, SUM(quantity) as quantity, SUM(products.price * quantity) as price, products.name')
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->groupBy('product_id')
+            ->orderBy('price','DESC')
+            ->whereMonth('orders.created_at', $month)
+            ->whereYear('orders.created_at', $year)
             ->get();
     }
 }

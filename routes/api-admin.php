@@ -67,6 +67,7 @@ Route::group(['as' => 'admin.'], function () {
             Route::get('/', 'OrderController@index')->name('index');
             Route::get('/{id}', 'OrderController@getDetail')->name('getDetail');
             Route::get('/admin/detail-budget', 'OrderController@detailBudget')->name('detailBudget');
+            Route::get('/admin/detail-month', 'OrderController@calculateMonth')->name('calculateMonth');
         });
     });
 });

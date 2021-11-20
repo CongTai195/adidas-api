@@ -36,9 +36,7 @@ Route::group(['as' => 'user.'], function () {
     });
 
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
-        Route::get('/{id}', 'TransactionController@index')->name('index');
         Route::post('/', 'TransactionController@create')->name('create');
-        Route::put('/{id}', 'TransactionController@update')->name('update');
     });
 
     Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
@@ -59,6 +57,11 @@ Route::group(['as' => 'user.'], function () {
 
         Route::group(['prefix' => 'comment', 'as' => 'user.'], function () {
             Route::post('/', 'CommentController@create')->name('create');
+        });
+
+        Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
+            Route::get('/', 'TransactionController@index')->name('index');
+            Route::put('/{id}', 'TransactionController@update')->name('update');
         });
     });
 });
