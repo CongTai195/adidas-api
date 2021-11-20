@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\ResponseHelper;
 use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class OrderController
 {
@@ -28,5 +30,12 @@ class OrderController
     public function detailBudget(): JsonResponse
     {
         return ResponseHelper::send($this->orderService->detailBudget());
+    }
+
+    public function calculateMonth(Request $request): JsonResponse
+    {
+        $month = Carbon::parse($request['date'])->format('m');
+        $year = Carbon::parse($request['date'])->format('Y');
+        return ResponseHelper::send($this->orderService->calculateMonth($month, $year));
     }
 }
