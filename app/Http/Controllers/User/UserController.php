@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Helpers\CommonResponse;
 use App\Helpers\HandleException;
 use App\Helpers\ResponseHelper;
-use App\Http\Request\CreateOrUpdateUserRequest;
+use App\Http\Request\CreateUserRequest;
+use App\Http\Request\UpdateUserRequest;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -29,7 +30,7 @@ class UserController
         return ResponseHelper::send(auth('api')->user());
     }
 
-    public function create(CreateOrUpdateUserRequest $request): JsonResponse
+    public function create(CreateUserRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -55,7 +56,7 @@ class UserController
         }
     }
 
-    public function update(CreateOrUpdateUserRequest $request): JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();

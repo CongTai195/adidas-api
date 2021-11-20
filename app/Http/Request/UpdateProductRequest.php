@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CreateOrUpdateUserRequest extends FormRequest
+class UpdateProductRequest  extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,12 +30,11 @@ class CreateOrUpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'address' => 'required',
-            'phone' => 'required|digits:10',
-            'gender' => 'required|boolean',
-            'password' => 'required',
-            'email' => 'email',
+            'name' => 'string',
+            'category_id' => 'numeric',
+            'price' => 'numeric',
+            'description' => 'string',
+            'specifications' => 'string'
         ];
     }
 

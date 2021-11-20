@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\CommonResponse;
 use App\Helpers\HandleException;
 use App\Helpers\ResponseHelper;
-use App\Http\Request\CreateOrUpdateProductRequest;
+use App\Http\Request\CreateProductRequest;
 use App\Http\Request\DeleteOrUpdateDeletedRequest;
+use App\Http\Request\UpdateProductRequest;
 use App\Services\ProductService;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -30,7 +31,7 @@ class ProductController
         return ResponseHelper::send($this->productService->all());
     }
 
-    public function create(CreateOrUpdateProductRequest $request): JsonResponse
+    public function create(CreateProductRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -55,7 +56,7 @@ class ProductController
             $pathImageMain = "product/" . $product->id . "/$imageMainName";
             Storage::disk("public")->put($pathImageMain, file_get_contents($imageMain));
             $imageUrls = implode(';', $imageUrlsArr);
-            $this->productService->update(["image" => $pathImageMain, "image_list" => $imageUrls], $product->id);
+            $product = $this->productService->update(["image" => $pathImageMain, "image_list" => $imageUrls], $product->id);
             DB::commit();
             return ResponseHelper::send($product);
         } catch (QueryException $e) {
@@ -69,11 +70,16 @@ class ProductController
         }
     }
 
-    public function update($id, CreateOrUpdateProductRequest $request): JsonResponse
+    public function update($id, UpdateProductRequest $request): JsonResponse
     {
-        try {
-            DB::beginTransaction();
+        if(isset($request['image'])) {
             $imageMain = $request['image'];
+            $imageMainName = $imageMain->getClientOriginalName();
+            $pathImageMain = "product/" . $id . "/$imageMainName";
+            Storage::disk("public")->put($pathImageMain, file_get_contents($imageMain));
+            $this->productService->update(["image" => $pathImageMain], $id);
+        }
+        if (isset($request['image_list']) ) {
             $imageList = $request['image_list'];
             $imageUrlsArr = [];
             foreach ($imageList as $image) {
@@ -82,11 +88,16 @@ class ProductController
                 Storage::disk("public")->put($pathImage, file_get_contents($image));
                 array_push($imageUrlsArr,$pathImage);
             }
-            $imageMainName = $imageMain->getClientOriginalName();
-            $pathImageMain = "product/" . $id . "/$imageMainName";
-            Storage::disk("public")->put($pathImageMain, file_get_contents($imageMain));
             $imageUrls = implode(';', $imageUrlsArr);
-            $result = $this->productService->update(["name"=> $request['name'], "price"=> $request['price'], "category_id"=> $request['category_id'], "specifications"=> $request['specifications'], "description"=> $request['description'], "image" => $pathImageMain, "image_list" => $imageUrls], $id);
+            $result = $request['image_list_string']."; ".$imageUrls;
+            $this->productService->update(["image_list" => $result], $id);
+        }
+        if (isset($request['image_list_string']) && !isset($request['image_list'])) {
+            $this->productService->update(["image_list" => $request['image_list_string']], $id);
+        }
+        try {
+            DB::beginTransaction();
+            $result = $this->productService->update($request->except('image', 'image_list', 'image_list_string'), $id);
             DB::commit();
             return ResponseHelper::send($result);
         } catch (QueryException $e) {

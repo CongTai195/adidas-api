@@ -7,8 +7,9 @@ use App\Helpers\HandleException;
 use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
-use App\Http\Request\CreateOrUpdateUserRequest;
+use App\Http\Request\CreateUserRequest;
 use App\Http\Request\DeleteOrUpdateDeletedRequest;
+use App\Http\Request\UpdateUserRequest;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -31,7 +32,7 @@ class UserController
         return ResponseHelper::send($this->userService->all());
     }
 
-    public function create(CreateOrUpdateUserRequest $request): JsonResponse
+    public function create(CreateUserRequest $request): JsonResponse
     {
         if(!isset($request['email'])) {
             return ResponseHelper::send([], Status::NG, HttpCode::BAD_REQUEST, ['email' => 'The email field is required.']);
@@ -60,7 +61,7 @@ class UserController
         }
     }
 
-    public function update($id, CreateOrUpdateUserRequest $request): JsonResponse
+    public function update($id, UpdateUserRequest $request): JsonResponse
     {
         try {
             DB::beginTransaction();
