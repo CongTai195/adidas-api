@@ -32,7 +32,7 @@ class OrderController
         return ResponseHelper::send($this->orderService->detailBudget());
     }
 
-    public function calculateMonth(Request $request): JsonResponse
+    public function calculateAccordingToProduct(Request $request): JsonResponse
     {
         $group = $request['group'];
         $day = Carbon::parse($request['date'])->format('Y-m-d');

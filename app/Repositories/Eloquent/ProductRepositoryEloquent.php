@@ -45,4 +45,9 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     {
         return $this->model->where('name', 'like', '%' . $string . '%')->get();
     }
+
+    public function allByCreated()
+    {
+        return $this->model->orderByDesc('created_at')->get();
+    }
 }
