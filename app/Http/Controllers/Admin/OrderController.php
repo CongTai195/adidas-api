@@ -27,17 +27,26 @@ class OrderController
         return ResponseHelper::send($this->orderService->findByField('transaction_id', $id));
     }
 
-    public function detailBudget(): JsonResponse
+    public function budgetProduct(): JsonResponse
     {
-        return ResponseHelper::send($this->orderService->detailBudget());
+        return ResponseHelper::send($this->orderService->budgetProduct());
     }
 
-    public function calculateAccordingToProduct(Request $request): JsonResponse
+    public function budgetProductDetail(Request $request): JsonResponse
     {
         $group = $request['group'];
         $day = Carbon::parse($request['date'])->format('Y-m-d');
         $month = Carbon::parse($request['date'])->format('m');
         $year = Carbon::parse($request['date'])->format('Y');
-        return ResponseHelper::send($this->orderService->calculateMonth($month, $year, $day, $group));
+        return ResponseHelper::send($this->orderService->budgetProductDetail($month, $year, $day, $group));
+    }
+
+    public function budgetDate(Request $request): JsonResponse
+    {
+        $group = $request['group'];
+        $day = Carbon::parse($request['date'])->format('Y-m-d');
+        $month = Carbon::parse($request['date'])->format('m');
+        $year = Carbon::parse($request['date'])->format('Y');
+        return ResponseHelper::send($this->orderService->budgetDate($month, $year, $day, $group));
     }
 }
