@@ -16,4 +16,5 @@ interface ProductRepository extends RepositoryInterface
 {
     public function updateView($id);
     public function search($string);
+    public function allByCreated();
 }
