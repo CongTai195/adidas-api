@@ -66,8 +66,9 @@ Route::group(['as' => 'admin.'], function () {
         Route::group(['prefix' => 'order', 'as' => 'user.'], function () {
             Route::get('/', 'OrderController@index')->name('index');
             Route::get('/{id}', 'OrderController@getDetail')->name('getDetail');
-            Route::get('/admin/detail-budget', 'OrderController@detailBudget')->name('detailBudget');
-            Route::get('/admin/detail-budget-product', 'OrderController@calculateAccordingToProduct')->name('calculateAccordingToProduct');
+            Route::get('/admin/budget-product', 'OrderController@budgetProduct')->name('budgetProduct');
+            Route::get('/admin/budget-product-detail', 'OrderController@budgetProductDetail')->name('budgetProductDetail');
+            Route::get('/admin/budget-date', 'OrderController@budgetDate')->name('budgetDate');
         });
     });
 });

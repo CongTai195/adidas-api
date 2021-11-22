@@ -33,13 +33,18 @@ class OrderService
         return $this->orderRepository->where('transaction_id', $id)->delete();
     }
 
-    public function detailBudget()
+    public function budgetProduct()
     {
-        return $this->orderRepository->calculate();
+        return $this->orderRepository->budgetProduct();
     }
 
-    public function calculateMonth($month, $year, $day, $group)
+    public function budgetProductDetail($month, $year, $day, $group)
     {
-        return $this->orderRepository->calculateMonth($month, $year, $day, $group);
+        return $this->orderRepository->budgetProductDetail($month, $year, $day, $group);
+    }
+
+    public function budgetDate($month, $year, $day, $group)
+    {
+        return $this->orderRepository->budgetDate($month, $year, $day, $group);
     }
 }
