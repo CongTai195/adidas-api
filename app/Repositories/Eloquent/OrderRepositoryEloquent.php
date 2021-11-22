@@ -52,15 +52,20 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
             ->get();
     }
 
-    public function calculateMonth($month, $year)
+    public function calculateMonth($month, $year, $day, $group)
     {
-        return $this->model
+        $sql = $this->model
             ->selectRaw('product_id, SUM(quantity) as quantity, SUM(products.price * quantity) as price, products.name')
             ->join('products', 'orders.product_id', '=', 'products.id')
             ->groupBy('product_id')
-            ->orderBy('price','DESC')
-            ->whereMonth('orders.created_at', $month)
-            ->whereYear('orders.created_at', $year)
-            ->get();
+            ->orderBy('price','DESC');
+        if($group == "day") {
+            $sql = $sql->whereDate('orders.created_at', $day);
+        } elseif($group == "month") {
+            $sql = $sql->whereMonth('orders.created_at', $month)->whereYear('orders.created_at', $year);
+        } elseif($group == "year") {
+            $sql = $sql->whereYear('orders.created_at', $year);
+        }
+        return $sql->get();
     }
 }

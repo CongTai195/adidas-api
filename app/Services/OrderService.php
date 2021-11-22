@@ -38,8 +38,8 @@ class OrderService
         return $this->orderRepository->calculate();
     }
 
-    public function calculateMonth($month, $year)
+    public function calculateMonth($month, $year, $day, $group)
     {
-        return $this->orderRepository->calculateMonth($month, $year);
+        return $this->orderRepository->calculateMonth($month, $year, $day, $group);
     }
 }

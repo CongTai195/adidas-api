@@ -34,8 +34,10 @@ class OrderController
 
     public function calculateMonth(Request $request): JsonResponse
     {
+        $group = $request['group'];
+        $day = Carbon::parse($request['date'])->format('Y-m-d');
         $month = Carbon::parse($request['date'])->format('m');
         $year = Carbon::parse($request['date'])->format('Y');
-        return ResponseHelper::send($this->orderService->calculateMonth($month, $year));
+        return ResponseHelper::send($this->orderService->calculateMonth($month, $year, $day, $group));
     }
 }
