@@ -36,9 +36,9 @@ class CategoryController
                     return $var['type'] == $category['id'];
                 }
             );
-            $categories[$key]['subs'] = $subs;
+            $categories[$key]['subs'] = array_values($subs);
         }
-        return ResponseHelper::send($categories);
+        return ResponseHelper::send(array_values($categories));
     }
 
     public function getProductsForCategory($id): JsonResponse
