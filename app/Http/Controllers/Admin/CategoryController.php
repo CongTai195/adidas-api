@@ -7,8 +7,9 @@ use App\Helpers\HandleException;
 use App\Helpers\HttpCode;
 use App\Helpers\ResponseHelper;
 use App\Helpers\Status;
-use App\Http\Request\CreateOrUpdateCategoryRequest;
+use App\Http\Request\CreateCategoryRequest;
 use App\Http\Request\DeleteOrUpdateDeletedRequest;
+use App\Http\Request\UpdateCategoryRequest;
 use App\Services\CategoryService;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -47,7 +48,7 @@ class CategoryController
         return ResponseHelper::send(array_values($categories));
     }
 
-    public function create(CreateOrUpdateCategoryRequest $request): JsonResponse
+    public function create(CreateCategoryRequest $request): JsonResponse
     {
         if(isset($request['type']))
         {
@@ -79,12 +80,16 @@ class CategoryController
         }  catch (Exception $e) {
             DB::rollBack();
             Log::error($e);
-            return CommonResponse::unknownResponse();
+            return CommonResponse::unknownResponse($e->getMessage());
         }
     }
 
-    public function update($id, CreateOrUpdateCategoryRequest $request): JsonResponse
+    public function update($id, UpdateCategoryRequest $request): JsonResponse
     {
+        $subs = $this->categoryService->findByField("type", $id);
+        if($subs->isNotEmpty() && isset($request['type'])) {
+            return ResponseHelper::send(["error" => "Category cannot update type"], Status::NG);
+        }
         try {
             DB::beginTransaction();
             $result = $this->categoryService->update($request->all(), $id);
@@ -97,7 +102,7 @@ class CategoryController
         }  catch (Exception $e) {
             DB::rollBack();
             Log::error($e);
-            return CommonResponse::unknownResponse();
+            return CommonResponse::unknownResponse($e->getMessage());
         }
     }
 

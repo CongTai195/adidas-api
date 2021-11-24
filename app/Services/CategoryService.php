@@ -37,6 +37,11 @@ class CategoryService
         return $this->categoryRepository->update($attributes, $id);
     }
 
+    public function findByField($field, $value, $columns = ['*'])
+    {
+        return $this->categoryRepository->findByField($field, $value, $columns);
+    }
+
     public function deleteCategories(array $ids)
     {
         $this->detailProductRepository->whereIn('product_id', $ids)->delete();

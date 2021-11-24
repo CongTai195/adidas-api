@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CreateOrUpdateCategoryRequest extends FormRequest
+class CreateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,7 @@ class CreateOrUpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'type' => 'numeric'
+            'type' => 'numeric|nullable'
         ];
     }
 
