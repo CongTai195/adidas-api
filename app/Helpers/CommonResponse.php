@@ -45,8 +45,11 @@ class CommonResponse {
         );
     }
 
-    public static function unknownResponse(): JsonResponse
+    public static function unknownResponse($e): JsonResponse
     {
-        return ResponseHelper::send([], Status::NG);
+        if (str_contains($e, 'No query results')) {
+            $e = 'Value is not found';
+        }
+        return ResponseHelper::send(["error" => $e], Status::NG);
     }
 }

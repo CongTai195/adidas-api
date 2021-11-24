@@ -71,7 +71,7 @@ class TransactionController
         }  catch (Exception $e) {
             DB::rollBack();
             Log::error($e);
-            return CommonResponse::unknownResponse();
+            return CommonResponse::unknownResponse($e->getMessage());
         }
     }
 }
