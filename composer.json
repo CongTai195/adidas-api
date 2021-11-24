@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.0",
         "prettus/l5-repository": "^2.7",
         "tymon/jwt-auth": "^1.0",
-      "ext-http": "*"
+      "ext-http": "*",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
