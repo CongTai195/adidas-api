@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,15 +16,15 @@ class ResponseHelper
      * @param array $errors
      * @param array $headers
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public static function send(
         $result = [],
-        $status = Status::OK,
-        $statusCode = HttpCode::OK,
-        $errors = [],
-        $headers = []
-    )
+        string $status = Status::OK,
+        int $statusCode = HttpCode::OK,
+        array $errors = [],
+        array $headers = []
+    ): JsonResponse
     {
         $data = [];
         $data['status'] = $status;
@@ -43,10 +44,10 @@ class ResponseHelper
     }
 
     /**
-     * @param string|\Exception $exception_message
-     * @return \Illuminate\Http\JsonResponse
+     * @param string|Exception $exception_message
+     * @return JsonResponse
      */
-    public static function sendException($exception_message)
+    public static function sendException($exception_message): JsonResponse
     {
         $statusCode = HttpCode::INTERNAL_SERVER_ERROR;
         if ($exception_message instanceof NotFoundHttpException) {
