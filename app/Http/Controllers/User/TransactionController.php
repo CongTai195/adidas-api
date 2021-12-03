@@ -33,7 +33,7 @@ class TransactionController
 
     public function index(): JsonResponse
     {
-        return ResponseHelper::send($this->transactionService->findByField('user_id', auth('api')->user()['id'], ['orders', 'orders.product']));
+        return ResponseHelper::send($this->transactionService->findByField('user_id', auth('api')->user()['id'], ['orders', 'orders.product:name,image']));
     }
 
     public function create(CreateTransactionRequest $request): JsonResponse
@@ -60,7 +60,8 @@ class TransactionController
                     'transaction_id' => $transaction->id ?? null,
                     'product_id' => $product['id'],
                     'quantity' => $product['quantity'],
-                    'size' => $product['size']
+                    'size' => $product['size'],
+                    'price' => $product['price']
                 ];
                 $detailProduct = [
                     'product_id' => $product['id'],
