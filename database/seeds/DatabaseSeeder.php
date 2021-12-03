@@ -383,13 +383,13 @@ class OrderSeeder extends Seeder
     public function run()
     {
         DB::table('orders')->insert([
-            ['transaction_id'=>1, 'product_id'=>2, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>1, 'product_id'=>4, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>1, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>10, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>11, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>24, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>25, 'quantity'=>'1', 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>1, 'product_id'=>2, 'quantity'=>'1', 'price'=>2990000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>1, 'product_id'=>4, 'quantity'=>'1', 'price'=>1050000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>1, 'quantity'=>'1', 'price'=>2990000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>10, 'quantity'=>'1', 'price'=>2350000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>11, 'quantity'=>'1', 'price'=>1950000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>24, 'quantity'=>'1', 'price'=>1250000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>25, 'quantity'=>'1', 'price'=>1300000, 'created_at' => date("Y-m-d H:i:s")],
         ]);
     }
 }
