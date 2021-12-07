@@ -27,14 +27,14 @@ class UserService
         return $this->userRepository->whereNotIn('id', [1])->withTrashed()->get();
     }
 
-    public function get($id, $column = ['*'])
-    {
-        return $this->userRepository->find($id, $column);
-    }
-
     public function getDeletedUsers()
     {
         return $this->userRepository->onlyTrashed()->get();
+    }
+
+    public function getUserVerify($id)
+    {
+        return $this->userRepository->withTrashed()->find($id);
     }
 
     public function updateDeletedUsers(array $ids)

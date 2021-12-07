@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             ['name'=>'customer', 'email'=>'customer', 'password'=>Hash::make('123'), 'gender'=>1, 'address'=>'null', 'phone'=>'null', 'created_at' => date("Y-m-d H:i:s")],
             ['name'=>'Thắng Quang', 'email'=>'thanghorit@gmail.com', 'password'=>Hash::make('123'),'gender'=>1, 'address'=>'141 đường Nguyễn Xí, phường Hòa Minh, quận Liên Chiểu, thành phố Đà Nẵng', 'phone'=>'0971504302', 'created_at' => date("Y-m-d H:i:s")],
-            ['name'=>'Thường Duy', 'email'=>'thuongduy24111998@gmail.com', 'password'=>Hash::make('123'), 'gender'=>0, 'address'=>'25 đường 12/5, thị trấn Khâm Đức, huyện Phước Sơn, tỉnh Quảng Nam', 'phone'=>'0708539115', 'created_at' => date("Y-m-d H:i:s")],
+            ['name'=>'Duy Béo', 'email'=>'duykhongmap@gmail.com', 'password'=>Hash::make('123'), 'gender'=>0, 'address'=>'25 đường 12/5, thị trấn Khâm Đức, huyện Phước Sơn, tỉnh Quảng Nam', 'phone'=>'0708539115', 'created_at' => date("Y-m-d H:i:s")],
         ]);
     }
 }
@@ -383,13 +383,13 @@ class OrderSeeder extends Seeder
     public function run()
     {
         DB::table('orders')->insert([
-            ['transaction_id'=>1, 'product_id'=>2, 'quantity'=>'1', 'price'=>2990000, 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>1, 'product_id'=>4, 'quantity'=>'1', 'price'=>1050000, 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>1, 'quantity'=>'1', 'price'=>2990000, 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>10, 'quantity'=>'1', 'price'=>2350000, 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>11, 'quantity'=>'1', 'price'=>1950000, 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>24, 'quantity'=>'1', 'price'=>1250000, 'created_at' => date("Y-m-d H:i:s")],
-            ['transaction_id'=>2, 'product_id'=>25, 'quantity'=>'1', 'price'=>1300000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>1, 'product_id'=>2, 'quantity'=>'1', 'name'=>'Giày Adidas Nam Adidas ZX 2K 4D “Triple Black” – Hàng Chính Hãng', 'price'=>2990000, 'image'=>'https://adidasstore.vn/wp-content/uploads/2021/01/FZ3561-01.jpg', 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>1, 'product_id'=>4, 'quantity'=>'1', 'name'=>'Adidas Falcon W “Olympic 2020” Nữ – Hàng Chính Hãng', 'price'=>1050000, 'image'=>'https://adidasstore.vn/wp-content/uploads/2020/12/Q47262-1.jpg', 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>1, 'quantity'=>'1', 'name'=>'Giày Sneaker Nam Adidas ZX 2K 4D FW2002 “Cloud White” – Hàng Chính Hãng', 'price'=>2990000, 'image'=>'https://adidasstore.vn/wp-content/uploads/2021/03/zx-2k-4d-shoes-white-fw2002-01-standard.jpg', 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>10, 'quantity'=>'1', 'name'=>'Giày Sneaker Nam Adidas Ultraboost 4.0 DNA FU9993 “5th Anniversary” – Hàng Chính Hãng', 'image'=>'https://adidasstore.vn/wp-content/uploads/2021/03/ultraboost-20-city-pack-hype-djen-fx7815-01-standard.jpg', 'price'=>2350000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>11, 'quantity'=>'1', 'name'=>'Giày Nữ Adidas Ultraboost 20 J “Black Reflective/Bronze Boost” – Hàng Chính Hãng', 'price'=>1950000, 'image'=>'https://adidasstore.vn/wp-content/uploads/2021/02/FX0455-01.jpg', 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>24, 'quantity'=>'1', 'name'=>'Giày Adidas Nam Adidas Supernova Athleisure “Royal Blue” – Hàng Chính Hãng', 'image'=>'https://adidasstore.vn/wp-content/uploads/2021/01/FY1427-1.jpg', 'price'=>1250000, 'created_at' => date("Y-m-d H:i:s")],
+            ['transaction_id'=>2, 'product_id'=>25, 'quantity'=>'1', 'name'=>'Giày Nữ Adidas Supernova “Glory Grey” - Hàng Chính Hãng', 'price'=>1300000, 'image'=>'https://adidasstore.vn/wp-content/uploads/2020/12/FV6018-1.jpg', 'created_at' => date("Y-m-d H:i:s")],
         ]);
     }
 }
