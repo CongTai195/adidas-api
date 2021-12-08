@@ -31,9 +31,9 @@ class SignupEmail extends Mailable
     {
         $data = $this->mailData;
         if($data['send']=="welcome") {
-            return $this->from('thanghorit@gmail.com', 'Adidas Shoe Shop')->subject('Welcome!')->view('mail.welcome-email', ['data'=>$this->mailData]);
+            return $this->from('adidasshoeshoppbl6@gmail.com', 'Adidas Shoe Shop')->subject('Welcome!')->view('mail.welcome-email', ['data'=>$this->mailData]);
         } elseif ($data['send']=="forget") {
-            return $this->from('thanghorit@gmail.com', 'Adidas Shoe Shop')->subject('Welcome!')->view('mail.thankyou-email', ['data'=>$this->mailData]);
+            return $this->from('adidasshoeshoppbl6@gmail.com', 'Adidas Shoe Shop')->subject('ForgetPassword!')->view('mail.thankyou-email', ['data'=>$this->mailData]);
         }
         return $this->view('view.name');
     }
