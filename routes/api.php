@@ -17,6 +17,7 @@ Route::group(['as' => 'user.'], function () {
     Route::post('/login', 'AuthenticateController@login')->name('login');
     Route::post('/register', 'UserController@create')->name('create');
     Route::get('/verify', 'UserController@verify')->name('verify');
+    Route::post('/forgetpassword', 'UserController@forgetPassword')->name('forgetPassword');
 
     Route::group(['prefix' => 'category', 'as' => 'user.'], function () {
         Route::get('/', 'CategoryController@index')->name('index');

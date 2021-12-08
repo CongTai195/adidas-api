@@ -27,6 +27,11 @@ class UserService
         return $this->userRepository->whereNotIn('id', [1])->withTrashed()->get();
     }
 
+    public function findByEmail($email)
+    {
+        return $this->userRepository->withTrashed()->where('email', $email)->get();
+    }
+
     public function getDeletedUsers()
     {
         return $this->userRepository->onlyTrashed()->get();
@@ -50,7 +55,7 @@ class UserService
 
     public function update(array $attributes, $id)
     {
-        return $this->userRepository->update($attributes, $id);
+        return $this->userRepository->withTrashed()->update($attributes, $id);
     }
 
     public function create(array $attributes)
