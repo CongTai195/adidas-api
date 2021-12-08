@@ -29,6 +29,12 @@ class SignupEmail extends Mailable
      */
     public function build(): SignupEmail
     {
-        return $this->from('thanghorit@gmail.com', 'Adidas Shoe Shop')->subject('Welcome!')->view('mail.welcome-email', ['data'=>$this->mailData]);
+        $data = $this->mailData;
+        if($data['send']=="welcome") {
+            return $this->from('thanghorit@gmail.com', 'Adidas Shoe Shop')->subject('Welcome!')->view('mail.welcome-email', ['data'=>$this->mailData]);
+        } elseif ($data['send']=="forget") {
+            return $this->from('thanghorit@gmail.com', 'Adidas Shoe Shop')->subject('Welcome!')->view('mail.thankyou-email', ['data'=>$this->mailData]);
+        }
+        return $this->view('view.name');
     }
 }

@@ -53,6 +53,7 @@ class UserController
             DB::commit();
             $this->userService->deleteUsers([$user['id']]);
             $mailData = [
+                'send' => 'welcome',
                 'code' => $code
             ];
             Mail::to($request['email'])->send(new SignupEmail($mailData));
@@ -76,6 +77,34 @@ class UserController
             $result = $this->userService->update($request->all(), $userId);
             DB::commit();
             return ResponseHelper::send($result);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error($e);
+            return HandleException::catchQueryException($e);
+        }  catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return CommonResponse::unknownResponse($e->getMessage());
+        }
+    }
+
+    public function forgetPassword(UpdateUserRequest $request): JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+            $code = random_int(100000,999999);
+            $user = $this->userService->findByEmail( $request['email'])->toArray();
+            $result = $this->userService->update(['password'=>Hash::make($request['password']), 'code'=>$code], head($user)['id']);
+            DB::commit();
+            if(head($user)['deleted_at']==null) {
+                $this->userService->deleteUsers([head($user)['id']]);
+            }
+            $mailData = [
+                'send' => 'forget',
+                'code' => $code
+            ];
+            Mail::to($request['email'])->send(new SignupEmail($mailData));
+            return ResponseHelper::send(head($user));
         } catch (QueryException $e) {
             DB::rollBack();
             Log::error($e);
