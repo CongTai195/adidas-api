@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class CommentController
 {
@@ -39,6 +40,16 @@ class CommentController
                 'content' => $request['content'],
             ];
             $comment = $this->commentService->create($data);
+            $imageList = $request['image'];
+            $imageUrlsArr = [];
+            foreach ($imageList as $image) {
+                $imageName = $image->getClientOriginalName();
+                $pathImage = "comment/" . $comment->id . "/$imageName";
+                Storage::disk("public")->put($pathImage, file_get_contents($image));
+                array_push($imageUrlsArr,$pathImage);
+            }
+            $imageUrls = implode(';', $imageUrlsArr);
+            $comment = $this->commentService->update(["image" => $imageUrls], $comment->id);
             DB::commit();
             return ResponseHelper::send($comment);
         } catch (QueryException $e) {
@@ -56,22 +67,4 @@ class CommentController
     {
         return ResponseHelper::send($this->commentService->getAccordingToStar($id, $request['star']));
     }
-
-//    public function update($id, CreateCommentRequest $request): JsonResponse
-//    {
-//        try {
-//            DB::beginTransaction();
-//            $result = $this->commentService->update($request->all(), $id);
-//            DB::commit();
-//            return ResponseHelper::send($result);
-//        } catch (QueryException $e) {
-//            DB::rollBack();
-//            Log::error($e);
-//            return HandleException::catchQueryException($e);
-//        }  catch (Exception $e) {
-//            DB::rollBack();
-//            Log::error($e);
-//            return CommonResponse::unknownResponse();
-//        }
-//    }
 }
