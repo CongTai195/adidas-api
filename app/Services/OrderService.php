@@ -47,4 +47,9 @@ class OrderService
     {
         return $this->orderRepository->budgetDate($month, $year, $day, $group);
     }
+
+    public function updateIsComment($id)
+    {
+        return $this->orderRepository->update(['is_comment'=>true], $id);
+    }
 }
