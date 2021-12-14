@@ -12,6 +12,7 @@ use App\Services\TransactionService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -59,9 +60,12 @@ class TransactionController
                 $order = [
                     'transaction_id' => $transaction->id ?? null,
                     'product_id' => $product['id'],
+                    'name' => $product['name'],
                     'quantity' => $product['quantity'],
+                    'image' => $product['image'],
                     'size' => $product['size'],
-                    'price' => $product['price']
+                    'price' => $product['price'],
+                    'created_at' => Carbon::now()
                 ];
                 $detailProduct = [
                     'product_id' => $product['id'],
