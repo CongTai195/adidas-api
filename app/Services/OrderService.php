@@ -33,6 +33,11 @@ class OrderService
         return $this->orderRepository->where('transaction_id', $id)->delete();
     }
 
+    public function deleteHard($id)
+    {
+        return $this->orderRepository->where('transaction_id', $id)->forceDelete();
+    }
+
     public function budgetProduct()
     {
         return $this->orderRepository->budgetProduct();
