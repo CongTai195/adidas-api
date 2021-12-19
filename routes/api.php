@@ -37,8 +37,7 @@ Route::group(['as' => 'user.'], function () {
     });
 
     Route::group(['prefix' => 'transaction', 'as' => 'user.'], function () {
-        Route::post('/', 'TransactionController@create')->name('create');
-        Route::get('/payment', 'TransactionController@createPayment')->name('createPayment');
+        Route::get('/payment', 'TransactionController@create')->name('create');
         Route::get('/payment-return', 'TransactionController@returnPayment')->name('returnPayment');
     });
 
