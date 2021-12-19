@@ -12,6 +12,7 @@ use App\Services\TransactionService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -78,6 +79,59 @@ class TransactionController
             $orders = $this->orderService->insert($orders);
             $detailProducts = $this->detailProductService->update($detailProducts);
             DB::commit();
+
+            if ($request['payment'] == "Thanh toán trực tuyến")
+            {
+                $vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+                $vnpReturnUrl = "http://localhost:8000/api/transaction/payment-return";
+                $vnpTmnCode = "AQHHUE0M";
+                $vnpHashSecret = "WBCBRJDBFAFQDJAWXBQKJJXPJZCHVOTH";
+                $vnpTxnRef = $transaction->id;
+                $vnpAmount = $request['amount']*100;
+                $vnpOrderInfo = 'Thanh toan don hang';
+                $vnpOrderType = 'billpayment';
+                $vnpLocale = 'vn';
+                $vnpBankCode = 'NCB';
+                $vnpIpAdd = request()->ip();
+
+                $inputData = array(
+                    "vnp_Version" => "2.1.0",
+                    "vnp_TmnCode" => $vnpTmnCode,
+                    "vnp_Amount" => $vnpAmount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnpIpAdd,
+                    "vnp_Locale" => $vnpLocale,
+                    "vnp_OrderInfo" => $vnpOrderInfo,
+                    "vnp_OrderType" => $vnpOrderType,
+                    "vnp_Returnurl" => $vnpReturnUrl,
+                    "vnp_TxnRef" => $vnpTxnRef,
+                );
+
+                if (isset($vnpBankCode) && $vnpBankCode != "") {
+                    $inputData['vnp_BankCode'] = $vnpBankCode;
+                }
+
+                ksort($inputData);
+                $query = "";
+                $i = 0;
+                $hashData = "";
+                foreach ($inputData as $key => $value) {
+                    if ($i == 1) {
+                        $hashData .= '&' . urlencode($key) . "=" . urlencode($value);
+                    } else {
+                        $hashData .= urlencode($key) . "=" . urlencode($value);
+                        $i = 1;
+                    }
+                    $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                }
+
+                $vnpUrl = $vnpUrl . "?" . $query;
+                $vnpSecureHash = hash_hmac('sha512', $hashData, $vnpHashSecret);
+                $vnpUrl .= 'vnp_SecureHash=' . $vnpSecureHash;
+                return ResponseHelper::send(['vnp' => $vnpUrl]);
+            }
             return ResponseHelper::send($transaction);
         } catch (QueryException $e) {
             DB::rollBack();
@@ -119,5 +173,27 @@ class TransactionController
             Log::error($e);
             return CommonResponse::unknownResponse();
         }
+    }
+
+    public function returnPayment(Request $request): JsonResponse
+    {
+        if ($request['vnp_ResponseCode'] == '00') {
+            return ResponseHelper::send(['status' => true]);
+        }
+        $orders = $this->orderService->findByField('transaction_id', $request['vnp_TxnRef']);
+        $detailProducts = [];
+        foreach ($orders as $order)
+        {
+            $detailProduct = [
+                'product_id' => $order['product_id'],
+                'size' => $order['size'],
+                'quantity' => -$order['quantity']
+            ];
+            array_push($detailProducts, $detailProduct);
+        }
+        $detailProducts = $this->detailProductService->update($detailProducts);
+        $this->orderService->deleteHard($request['vnp_TxnRef']);
+        $this->transactionService->delete($request['vnp_TxnRef']);
+        return ResponseHelper::send(['status' => false]);
     }
 }
