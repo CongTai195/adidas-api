@@ -107,12 +107,8 @@ class TransactionController
                     "vnp_OrderType" => $vnpOrderType,
                     "vnp_Returnurl" => $vnpReturnUrl,
                     "vnp_TxnRef" => $vnpTxnRef,
+                    "vnp_BankCode" => $vnpBankCode,
                 );
-
-                if (isset($vnpBankCode) && $vnpBankCode != "") {
-                    $inputData['vnp_BankCode'] = $vnpBankCode;
-                }
-
                 ksort($inputData);
                 $query = "";
                 $i = 0;
