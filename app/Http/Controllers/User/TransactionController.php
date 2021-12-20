@@ -83,7 +83,7 @@ class TransactionController
             if ($request['payment'] == "Thanh toán trực tuyến")
             {
                 $vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-                $vnpReturnUrl = "http://localhost:3000/adidas-webclient";
+                $vnpReturnUrl = "http://localhost:3000/home";
                 $vnpTmnCode = "AQHHUE0M";
                 $vnpHashSecret = "WBCBRJDBFAFQDJAWXBQKJJXPJZCHVOTH";
                 $vnpTxnRef = $transaction->id;
@@ -173,9 +173,6 @@ class TransactionController
 
     public function returnPayment(Request $request): JsonResponse
     {
-        if ($request['vnp_ResponseCode'] == '00') {
-            return ResponseHelper::send(['status' => true]);
-        }
         $orders = $this->orderService->findByField('transaction_id', $request['vnp_TxnRef']);
         $detailProducts = [];
         foreach ($orders as $order)
@@ -190,6 +187,6 @@ class TransactionController
         $detailProducts = $this->detailProductService->update($detailProducts);
         $this->orderService->deleteHard($request['vnp_TxnRef']);
         $this->transactionService->delete($request['vnp_TxnRef']);
-        return ResponseHelper::send(['status' => false]);
+        return ResponseHelper::send(['status' => true]);
     }
 }
