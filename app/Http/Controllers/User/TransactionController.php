@@ -83,7 +83,7 @@ class TransactionController
             if ($request['payment'] == "Thanh toán trực tuyến")
             {
                 $vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-                $vnpReturnUrl = "http://127.0.0.1:8000/api";
+                $vnpReturnUrl = "http://localhost:3000/adidas-webclient";
                 $vnpTmnCode = "AQHHUE0M";
                 $vnpHashSecret = "WBCBRJDBFAFQDJAWXBQKJJXPJZCHVOTH";
                 $vnpTxnRef = $transaction->id;
